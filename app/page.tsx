@@ -54,6 +54,34 @@ export default function Home() {
               Playwright, Pytest, and API testing.
             </p>
 
+<div className="mt-6 flex flex-wrap gap-3">
+  {[
+    "Python",
+    "Playwright",
+    "Pytest",
+    "REST API",
+    "Requests",
+    "Git",
+  ].map((tech) => (
+    <span
+      key={tech}
+      className="rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-2 text-sm font-medium text-cyan-400"
+    >
+      {tech}
+    </span>
+  ))}
+</div>
+
+<a
+  href="https://github.com/quality-krl/sylius-automation"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="mt-8 inline-flex rounded-lg border border-cyan-500 px-6 py-3 font-semibold text-cyan-400 transition-colors hover:bg-cyan-500 hover:text-black"
+>
+  View on GitHub ↗
+</a>
+
+
           </div>
 
         </div>
