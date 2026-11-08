@@ -1,96 +1,51 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { useLanguage } from "./LanguageProvider";
+import { translations } from "../i18n/translations";
 
-type Project = {
-  id: string;
-  title: string;
-  eyebrow: string;
-  category: string;
-  description: string;
+type ProjectId = keyof typeof translations.en.projects;
+
+type ProjectConfig = {
+  id: ProjectId;
   tags: string[];
-  highlights: string[];
   accent: string;
   github?: string;
   demoVideo?: string;
 };
 
-const projects: Project[] = [
+// Only metadata lives here. All displayed copy comes from translations.ts.
+const projects: ProjectConfig[] = [
   {
     id: "sylius",
-    title: "Sylius Automation",
-    eyebrow: "FEATURED PROJECT",
-    category: "END-TO-END AUTOMATION",
-    description: "Building maintainable UI and API checks for a real e-commerce platform.",
     tags: ["Playwright", "Python", "Pytest", "REST API"],
-    highlights: [
-      "Page Object Model and reusable fixtures",
-      "Critical shopping journeys and API coverage",
-      "Negative cases, test data and lifecycle checks",
-    ],
     accent: "violet",
     github: "https://github.com/quality-krl/sylius-automation",
-    // Add demoVideo: "/videos/sylius-demo.mp4" when you have a real recording.
   },
   {
     id: "freetv",
-    title: "FreeTV iOS QA",
-    eyebrow: "MOBILE QUALITY ASSURANCE",
-    category: "MOBILE · API · SECURITY",
-    description: "Exploring critical streaming flows through manual, API and security-focused testing.",
     tags: ["iOS", "Postman", "TestRail", "Jira"],
-    highlights: [
-      "123 documented test cases",
-      "Streaming, authentication and account scenarios",
-      "API investigation and structured defect reporting",
-    ],
     accent: "coral",
   },
   {
     id: "ksp",
-    title: "KSP E-Commerce QA",
-    eyebrow: "MANUAL QA CASE STUDY",
-    category: "WEB · E-COMMERCE",
-    description: "Risk-driven functional testing of a multi-step online shopping experience.",
     tags: ["Test Design", "DevTools", "Jira", "Web QA"],
-    highlights: [
-      "65 test cases across key customer flows",
-      "Shopping cart, search, login and UX checks",
-      "Defect analysis and test summary reporting",
-    ],
     accent: "blue",
   },
   {
     id: "precision",
-    title: "PrecisionPlaybook",
-    eyebrow: "DESIGN CONCEPT",
-    category: "QA WORKFLOW TOOL",
-    description: "A concept for clearer, structured defect reporting in two languages.",
     tags: ["JavaScript", "HTML", "CSS", "RTL / LTR"],
-    highlights: [
-      "Structured bug-report workflow concept",
-      "Bilingual English / Hebrew experience",
-      "Clarity and usability as design priorities",
-    ],
     accent: "mint",
   },
   {
     id: "eargym",
-    title: "EarGym TestLab",
-    eyebrow: "INTERACTIVE CONCEPT",
-    category: "INTERACTIVE WEB EXPERIENCE",
-    description: "An ear-training application concept bringing music, interaction and QA together.",
     tags: ["JavaScript", "Responsive UI", "Interaction", "QA"],
-    highlights: [
-      "Interactive ear-training experience concept",
-      "Audio-oriented interface and feedback",
-      "Responsive design and user-flow testing",
-    ],
     accent: "gold",
   },
 ];
 
-function ProjectArtwork({ id }: { id: Project["id"] }) {
+function ProjectArtwork({ id, label }: { id: ProjectId; label: string }) {
   return (
     <div className={`project-art project-art--${id}`} aria-hidden="true">
       <div className="art-aurora" />
@@ -203,99 +158,303 @@ function ProjectArtwork({ id }: { id: Project["id"] }) {
           </>
         )}
       </svg>
-      <span className="art-pill">{id === "sylius" ? "UI + API COVERAGE" : id === "freetv" ? "MOBILE TESTING" : id === "ksp" ? "SHOPPING FLOWS" : id === "precision" ? "REPORTING WORKFLOW" : "INTERACTIVE AUDIO"}</span>
+      <span className="art-pill">{label}</span>
     </div>
   );
 }
 
 export default function ProjectCarousel() {
+  const { language } = useLanguage();
+  const t = translations[language];
+  const labels = t.carousel;
+  const isHebrew = language === "he";
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [detailOpen, setDetailOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+
   const total = projects.length;
   const active = projects[activeIndex];
   const previous = projects[(activeIndex - 1 + total) % total];
   const next = projects[(activeIndex + 1) % total];
 
-  const go = (direction: number) => setActiveIndex((index) => (index + direction + total) % total);
+  const copy = (id: ProjectId) => t.projects[id];
+  const activeCopy = copy(active.id);
+  const previousCopy = copy(previous.id);
+  const nextCopy = copy(next.id);
+
+  function go(step: number) {
+    setActiveIndex((index) => (index + step + total) % total);
+  }
+
+  function openDetails() {
+    triggerRef.current = document.activeElement instanceof HTMLButtonElement
+      ? document.activeElement
+      : null;
+    setDetailOpen(true);
+  }
+
+  function closeDetails() {
+    setDetailOpen(false);
+  }
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!detailOpen) return;
-    const onEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setDetailOpen(false);
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeRef.current?.focus();
+
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        closeDetails();
+      }
+      // Keep keyboard focus inside the dialog.
+      if (event.key === "Tab") {
+        const dialog = document.querySelector<HTMLElement>("#project-detail-dialog");
+        if (!dialog) return;
+        const nodes = Array.from(
+          dialog.querySelectorAll<HTMLElement>(
+            'button:not([disabled]), a[href], video[controls]'
+          )
+        );
+        const first = nodes[0];
+        const last = nodes[nodes.length - 1];
+        if (!first || !last) return;
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+    }
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+      triggerRef.current?.focus();
     };
-    window.addEventListener("keydown", onEscape);
-    return () => window.removeEventListener("keydown", onEscape);
   }, [detailOpen]);
 
   return (
-    <section id="showcase" className="showcase" aria-label="Featured QA projects" onKeyDown={(event) => {
-      if (detailOpen) return;
-      if (event.key === "ArrowLeft") { event.preventDefault(); go(-1); }
-      if (event.key === "ArrowRight") { event.preventDefault(); go(1); }
-    }}>
-      <div className="showcase-topline"><span className="sparkle-symbol">✦</span> FEATURED WORK <span className="topline-rule" /> <span className="current-count">0{activeIndex + 1} <span>/ 0{total}</span></span></div>
-      <div className="carousel-stage">
-        <div className="orbit orbit-one" aria-hidden="true" />
-        <div className="orbit orbit-two" aria-hidden="true" />
-        <div className="stage-halo" aria-hidden="true" />
-
-        <button className="peek-card peek-card--left" aria-label={`Show ${previous.title}`} onClick={() => go(-1)} type="button">
-          <div className="peek-art"><ProjectArtwork id={previous.id} /></div>
-          <span className="peek-category">PREVIOUS PROJECT</span>
-          <strong>{previous.title}</strong>
-        </button>
-        <button className="peek-card peek-card--right" aria-label={`Show ${next.title}`} onClick={() => go(1)} type="button">
-          <div className="peek-art"><ProjectArtwork id={next.id} /></div>
-          <span className="peek-category">NEXT PROJECT</span>
-          <strong>{next.title}</strong>
-        </button>
-
-        <article key={active.id} className={`spotlight-card spotlight-card--${active.accent}`} aria-live="polite">
-          <div className="card-shine" aria-hidden="true" />
-          <div className="card-upper"><span className="card-badge"><span>✦</span> {active.eyebrow}</span><span className="card-corner">PORTFOLIO / 0{activeIndex + 1}</span></div>
-          <ProjectArtwork id={active.id} />
-          <div className="card-copy">
-            <span className="card-category">{active.category}</span>
-            <h2>{active.title}</h2>
-            <p>{active.description}</p>
-            <div className="project-tags" aria-label="Technologies">
-              {active.tags.map((tag) => <span key={tag}>{tag}</span>)}
-            </div>
-            <div className="card-actions">
-              <button type="button" className="action-btn action-btn--primary" onClick={() => setDetailOpen(true)}>View case study <span aria-hidden="true">↗</span></button>
-              {active.github && <a className="action-btn action-btn--outline" href={active.github} target="_blank" rel="noopener noreferrer">Source code <span aria-hidden="true">↗</span></a>}
-              {active.demoVideo && <button type="button" className="action-btn action-btn--outline" onClick={() => setDetailOpen(true)}>Watch demo <span aria-hidden="true">▶</span></button>}
-            </div>
-          </div>
-        </article>
-      </div>
-      <div className="carousel-controls" aria-label="Project carousel controls">
-        <button type="button" className="circle-control" onClick={() => go(-1)} aria-label="Previous project"><span aria-hidden="true">‹</span></button>
-        <div className="carousel-dots">
-          {projects.map((project, i) => <button key={project.id} type="button" aria-label={`Show ${project.title}`} aria-current={i === activeIndex ? "true" : undefined} className={`carousel-dot ${i === activeIndex ? "is-selected" : ""}`} onClick={() => setActiveIndex(i)} />)}
+    <>
+      <section
+        id="showcase"
+        className="showcase"
+        aria-label={labels.featuredWork}
+        onKeyDown={(event) => {
+          if (detailOpen || event.target instanceof HTMLButtonElement && event.target.closest(".carousel-controls") === null) return;
+          if (event.key === "ArrowLeft") {
+            event.preventDefault();
+            go(-1);
+          } else if (event.key === "ArrowRight") {
+            event.preventDefault();
+            go(1);
+          }
+        }}
+      >
+        <div className="showcase-topline">
+          <span className="sparkle-symbol" aria-hidden="true">✦</span>
+          {labels.featuredWork}
+          <span className="topline-rule" />
+          <span className="current-count" dir="ltr">
+            0{activeIndex + 1} <span>/ 0{total}</span>
+          </span>
         </div>
-        <button type="button" className="circle-control" onClick={() => go(1)} aria-label="Next project"><span aria-hidden="true">›</span></button>
-        <span className="controls-hint">USE ARROWS TO EXPLORE</span>
-      </div>
 
-      {detailOpen && (
-        <div className="dialog-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) setDetailOpen(false); }}>
-          <div className="case-dialog" role="dialog" aria-modal="true" aria-labelledby="case-title">
-            <button className="dialog-close" type="button" aria-label="Close project details" onClick={() => setDetailOpen(false)}>×</button>
-            <p className="page-kicker">PROJECT DEEP DIVE</p>
-            <h2 id="case-title">{active.title}</h2>
-            <p className="dialog-description">{active.description}</p>
-            <h3>What this project explores</h3>
-            <ul>{active.highlights.map((item) => <li key={item}>{item}</li>)}</ul>
-            <div className="dialog-tags">{active.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
-            {active.demoVideo && <video className="case-video" src={active.demoVideo} controls playsInline preload="metadata">Your browser does not support video playback.</video>}
+        <div className="carousel-stage">
+          <div className="orbit orbit-one" aria-hidden="true" />
+          <div className="orbit orbit-two" aria-hidden="true" />
+          <div className="stage-halo" aria-hidden="true" />
+
+          <button
+            className="peek-card peek-card--left"
+            aria-label={`${labels.previousProject}: ${previousCopy.title}`}
+            onClick={() => go(-1)}
+            type="button"
+          >
+            <div className="peek-art">
+              <ProjectArtwork id={previous.id} label={previousCopy.artLabel} />
+            </div>
+            <span className="peek-category">{labels.previousProject}</span>
+            <strong>{previousCopy.title}</strong>
+          </button>
+
+          <button
+            className="peek-card peek-card--right"
+            aria-label={`${labels.nextProject}: ${nextCopy.title}`}
+            onClick={() => go(1)}
+            type="button"
+          >
+            <div className="peek-art">
+              <ProjectArtwork id={next.id} label={nextCopy.artLabel} />
+            </div>
+            <span className="peek-category">{labels.nextProject}</span>
+            <strong>{nextCopy.title}</strong>
+          </button>
+
+          <article
+            key={active.id}
+            className={`spotlight-card spotlight-card--${active.accent}`}
+            aria-live="polite"
+            dir={isHebrew ? "rtl" : "ltr"}
+          >
+            <div className="card-shine" aria-hidden="true" />
+            <div className="card-upper">
+              <span className="card-badge">
+                <span aria-hidden="true">✦</span> {activeCopy.eyebrow}
+              </span>
+              <span className="card-corner" dir="ltr">
+                PORTFOLIO / 0{activeIndex + 1}
+              </span>
+            </div>
+
+            <ProjectArtwork id={active.id} label={activeCopy.artLabel} />
+
+            <div className="card-copy">
+              <span className="card-category">{activeCopy.category}</span>
+              <h2>{activeCopy.title}</h2>
+              <p>{activeCopy.description}</p>
+              <div className="project-tags" aria-label={labels.technologies}>
+                {active.tags.map((tag) => <span key={tag} dir="auto">{tag}</span>)}
+              </div>
+              <div className="card-actions">
+                <button
+                  ref={triggerRef}
+                  type="button"
+                  className="action-btn action-btn--primary"
+                  onClick={openDetails}
+                >
+                  {labels.viewCaseStudy} <span aria-hidden="true">↗</span>
+                </button>
+                {active.github && (
+                  <a
+                    className="action-btn action-btn--outline project-source-link"
+                    href={active.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {labels.sourceCode} <span aria-hidden="true">↗</span>
+                  </a>
+                )}
+                {active.demoVideo && (
+                  <button
+                    type="button"
+                    className="action-btn action-btn--outline"
+                    onClick={openDetails}
+                  >
+                    {labels.watchDemo} <span aria-hidden="true">▶</span>
+                  </button>
+                )}
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div className="carousel-controls" aria-label={labels.featuredWork}>
+          <button
+            type="button"
+            className="circle-control"
+            onClick={() => go(-1)}
+            aria-label={labels.previousProject}
+          >
+            <span aria-hidden="true">‹</span>
+          </button>
+          <div className="carousel-dots">
+            {projects.map((project, index) => (
+              <button
+                key={project.id}
+                type="button"
+                aria-label={`${labels.viewCaseStudy}: ${copy(project.id).title}`}
+                aria-current={index === activeIndex ? "true" : undefined}
+                className={`carousel-dot ${index === activeIndex ? "is-selected" : ""}`}
+                onClick={() => setActiveIndex(index)}
+              />
+            ))}
+          </div>
+          <button
+            type="button"
+            className="circle-control"
+            onClick={() => go(1)}
+            aria-label={labels.nextProject}
+          >
+            <span aria-hidden="true">›</span>
+          </button>
+          <span className="controls-hint">{labels.useArrows}</span>
+        </div>
+      </section>
+
+      {mounted && detailOpen && createPortal(
+        <div
+          className="dialog-backdrop"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) closeDetails();
+          }}
+        >
+          <div
+            id="project-detail-dialog"
+            className="case-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="case-title"
+            dir={isHebrew ? "rtl" : "ltr"}
+          >
+            <button
+              ref={closeRef}
+              className="dialog-close"
+              type="button"
+              aria-label={labels.close}
+              onClick={closeDetails}
+            >
+              ×
+            </button>
+            <p className="page-kicker">{labels.deepDive}</p>
+            <h2 id="case-title">{activeCopy.title}</h2>
+            <p className="dialog-description">{activeCopy.description}</p>
+            <h3>{labels.highlights}</h3>
+            <ul>
+              {activeCopy.highlights.map((item) => <li key={item}>{item}</li>)}
+            </ul>
+            <div className="dialog-tags">
+              {active.tags.map((tag) => <span key={tag} dir="auto">{tag}</span>)}
+            </div>
+            {active.demoVideo && (
+              <video className="case-video" src={active.demoVideo} controls playsInline preload="metadata">
+                Your browser does not support video playback.
+              </video>
+            )}
             <div className="dialog-actions">
-              {active.github && <a className="action-btn action-btn--primary" href={active.github} target="_blank" rel="noopener noreferrer">View repository ↗</a>}
-              <button className="action-btn action-btn--outline" type="button" onClick={() => setDetailOpen(false)}>Close</button>
+              {active.github && (
+                <a
+                  className="action-btn action-btn--primary project-source-link"
+                  href={active.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {labels.viewRepository} <span aria-hidden="true">↗</span>
+                </a>
+              )}
+              <button
+                className="action-btn action-btn--outline"
+                type="button"
+                onClick={closeDetails}
+              >
+                {labels.close}
+              </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
-    </section>
+    </>
   );
 }

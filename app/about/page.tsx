@@ -1,84 +1,65 @@
 
+"use client";
+
 import Link from "next/link";
 
-const capabilities = [
-  {
-    title: "Automation Engineering",
-    detail:
-      "Playwright, Python, Pytest, POM, test fixtures and maintainable test suites.",
-  },
-  {
-    title: "API & Integration Testing",
-    detail:
-      "HTTP, REST, Postman, Requests, CRUD flows, negative scenarios and state validation.",
-  },
-  {
-    title: "Risk-based QA",
-    detail:
-      "Critical user journeys, boundary conditions, hidden requirements and meaningful coverage.",
-  },
-  {
-    title: "Test Documentation",
-    detail:
-      "STP, STD, STR, defect reports, traceability and actionable feedback.",
-  },
-];
+import { useLanguage } from "../components/LanguageProvider";
+import { translations } from "../i18n/translations";
 
 export default function AboutPage() {
+  const { language } = useLanguage();
+
+  const t = translations[language].about;
+
   return (
-    <main id="main-content" className="inner-page">
+    <main
+      id="main-content"
+      className="inner-page"
+      dir={language === "he" ? "rtl" : "ltr"}
+    >
       <div
         className="inner-glow inner-glow--left"
         aria-hidden="true"
       />
 
       <div className="page-content">
+        {/* Page introduction */}
         <p className="page-kicker">
-          BEYOND THE TEST CASE
+          {t.kicker}
         </p>
 
         <h1 className="page-title">
-          Curious by nature.{" "}
-          <span>Precise by design.</span>
+          {t.title}{" "}
+          <span>{t.titleAccent}</span>
         </h1>
 
         <p className="page-lead">
-          I&apos;m Kirill — a QA practitioner building
-          toward a career in automation engineering.
-          I approach quality as a product responsibility,
-          not just a checklist.
+          {t.introduction}
         </p>
 
-        {/* My Approach */}
+        {/* My approach */}
         <div className="about-story glass-surface">
           <div>
             <span className="section-index">
-              01 / MY APPROACH
+              01 / {t.approachLabel}
             </span>
 
             <h2>
-              Test what matters.
-              Question what is missing.
+              {t.approachTitle}
             </h2>
           </div>
 
           <p>
-            My work centers on risk-based coverage:
-            protecting important business flows,
-            investigating edge cases, and finding
-            problems that written requirements may
-            not anticipate. I enjoy turning those
-            insights into repeatable, maintainable
-            automated checks.
+            {t.approachDescription}
           </p>
         </div>
 
-        {/* Skills and Capabilities */}
+        {/* Skills and capabilities */}
         <div className="capabilities">
-          {capabilities.map((item, index) => (
+          {t.capabilities.map((item, index) => (
             <article
               className="capability glass-surface"
-              key={item.title}
+              key={index}
             >
               <span className="capability-number">
                 0{index + 1}
@@ -91,22 +72,28 @@ export default function AboutPage() {
           ))}
         </div>
 
-        {/* Navigation Actions */}
+        {/* Navigation actions */}
         <div className="page-bottom-actions">
           <Link
             href="/"
             className="action-btn action-btn--outline"
           >
-            Explore projects
-            <span aria-hidden="true">←</span>
+            {t.exploreProjects}
+
+            <span aria-hidden="true">
+              {language === "he" ? "→" : "←"}
+            </span>
           </Link>
 
           <Link
             href="/contact"
             className="action-btn action-btn--primary"
           >
-            Get in touch
-            <span aria-hidden="true">↗</span>
+            {t.getInTouch}
+
+            <span aria-hidden="true">
+              ↗
+            </span>
           </Link>
         </div>
       </div>

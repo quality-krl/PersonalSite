@@ -1,6 +1,34 @@
+
 import type { Metadata } from "next";
-import Link from "next/link";
+import type { ReactNode } from "react";
+import { Sora, Manrope, Heebo } from "next/font/google";
+
+import { LanguageProvider } from "./components/LanguageProvider";
+import SiteHeader from "./components/SiteHeader";
+import SiteFooter from "./components/SiteFooter";
+
 import "./globals.css";
+
+// Display font: distinctive geometric headings
+const sora = Sora({
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+// Body font: clean and professional
+const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-body",
+  display: "swap",
+});
+
+// Hebrew font: refined and highly readable
+const heebo = Heebo({
+  subsets: ["hebrew", "latin"],
+  variable: "--font-hebrew",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Kirill Kovalevski | QA Automation Engineer",
@@ -8,36 +36,29 @@ export const metadata: Metadata = {
     "QA Automation, API testing and risk-based quality engineering. Explore Kirill Kovalevski's portfolio and case studies.",
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: ReactNode;
+}>) {
   return (
     <html lang="en">
-      <body>
-        <div className="site-shell">
-          <a className="skip-link" href="#main-content">Skip to content</a>
-          <header className="site-header">
-            <div className="header-inner">
-              <Link className="brand" href="/" aria-label="Kirill Kovalevski — Home">
-                <span className="brand-mark" aria-hidden="true"><span>K</span><span className="brand-spark" /></span>
-                <span className="brand-copy"><strong>Kirill Kovalevski</strong><small>QUALITY ENGINEERING</small></span>
-              </Link>
-              <nav className="site-nav" aria-label="Main navigation">
-                <Link href="/">Home</Link>
-                <Link href="/about">About</Link>
-                <Link className="nav-contact" href="/contact">Let's talk <span aria-hidden="true">↗</span></Link>
-              </nav>
-            </div>
-          </header>
-          {children}
-          <footer className="site-footer">
-            <span>© Kirill Kovalevski</span>
-            <span className="footer-center">BUILT WITH CURIOSITY · TESTED WITH PURPOSE</span>
-            <div className="footer-links">
-              <a href="https://github.com/quality-krl" target="_blank" rel="noopener noreferrer">GitHub</a>
-              <a href="https://www.linkedin.com/in/kirill-kovalevski/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-              <a href="mailto:kirill.kovalevski.qa@gmail.com">Email</a>
-            </div>
-          </footer>
-        </div>
+      <body
+        className={[
+          sora.variable,
+          manrope.variable,
+          heebo.variable,
+        ].join(" ")}
+      >
+        <LanguageProvider>
+          <div className="site-shell">
+            <SiteHeader />
+
+            {children}
+
+            <SiteFooter />
+          </div>
+        </LanguageProvider>
       </body>
     </html>
   );

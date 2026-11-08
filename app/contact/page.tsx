@@ -1,33 +1,143 @@
+
+"use client";
+
 import Link from "next/link";
 
-const ways = [
-  { number: "01", label: "EMAIL", title: "Let's start a conversation", detail: "kirill.kovalevski.qa@gmail.com", href: "mailto:kirill.kovalevski.qa@gmail.com", cta: "Write an email" },
-  { number: "02", label: "LINKEDIN", title: "Let's connect professionally", detail: "linkedin.com/in/kirill-kovalevski", href: "https://www.linkedin.com/in/kirill-kovalevski/", cta: "Open LinkedIn" },
-  { number: "03", label: "GITHUB", title: "Explore the code", detail: "github.com/quality-krl", href: "https://github.com/quality-krl", cta: "Open GitHub" },
-];
+import { useLanguage } from "../components/LanguageProvider";
+import { translations } from "../i18n/translations";
+
+import ExternalServiceLink, {
+  ExternalServiceIcon,
+  type ExternalService,
+} from "../components/ExternalServiceLink";
 
 export default function ContactPage() {
+  const { language } = useLanguage();
+  const t = translations[language].contact;
+
+  const contactMethods: {
+    number: string;
+    service: ExternalService;
+    label: string;
+    title: string;
+    detail: string;
+    action: string;
+  }[] = [
+    {
+      number: "01",
+      service: "email",
+      label: t.emailLabel,
+      title: t.emailTitle,
+      detail: "kirill.kovalevski.qa@gmail.com",
+      action: t.emailAction,
+    },
+    {
+      number: "02",
+      service: "linkedin",
+      label: t.linkedinLabel,
+      title: t.linkedinTitle,
+      detail: "linkedin.com/in/kirill-kovalevski",
+      action: t.linkedinAction,
+    },
+    {
+      number: "03",
+      service: "github",
+      label: t.githubLabel,
+      title: t.githubTitle,
+      detail: "github.com/quality-krl",
+      action: t.githubAction,
+    },
+  ];
+
   return (
-    <main id="main-content" className="inner-page contact-page">
-      <div className="inner-glow" aria-hidden="true" />
+    <main
+      id="main-content"
+      className="inner-page contact-page"
+      dir={language === "he" ? "rtl" : "ltr"}
+    >
+      <div
+        className="inner-glow inner-glow--left"
+        aria-hidden="true"
+      />
+
       <div className="page-content">
-        <p className="page-kicker">SAY HELLO</p>
-        <h1 className="page-title">Great work starts with <span>a conversation.</span></h1>
-        <p className="page-lead">QA opportunities, automation projects or an interesting technical challenge — I'd be glad to hear from you.</p>
-        <div className="contact-grid">
-          {ways.map((way) => (
-            <article className="contact-card glass-surface" key={way.number}>
-              <span className="section-index">{way.number} / {way.label}</span>
-              <h2>{way.title}</h2>
-              <p>{way.detail}</p>
-              <a className="action-btn action-btn--outline" href={way.href} target={way.href.startsWith("https") ? "_blank" : undefined} rel={way.href.startsWith("https") ? "noopener noreferrer" : undefined}>
-                {way.cta} <span aria-hidden="true">↗</span>
-              </a>
+        <p className="page-kicker">
+          {t.kicker}
+        </p>
+
+        <h1 className="page-title">
+          {t.title}{" "}
+          <span>{t.titleAccent}</span>
+        </h1>
+
+        <p className="page-lead">
+          {t.introduction}
+        </p>
+
+        <div className="mt-10 grid w-full grid-cols-1 gap-5 md:grid-cols-3">
+          {contactMethods.map((method) => (
+            <article
+              key={method.service}
+              className="
+                contact-card glass-surface
+                flex h-full flex-col items-center
+                rounded-3xl p-7 text-center
+                transition-all duration-300
+                hover:-translate-y-1
+                hover:shadow-xl
+              "
+            >
+              <div
+                className={
+                  "external-service-badge " +
+                  `external-service-badge--${method.service}`
+                }
+              >
+                <ExternalServiceIcon
+                  service={method.service}
+                />
+              </div>
+
+              <span className="section-index mt-5">
+                {method.number} / {method.label}
+              </span>
+
+              <h2 className="mt-4 text-xl font-semibold tracking-tight text-[#19343D]">
+                {method.title}
+              </h2>
+
+              <p
+                dir="ltr"
+                className="mt-3 max-w-full break-words text-center text-sm text-[#637879]"
+                style={{ overflowWrap: "anywhere" }}
+              >
+                {method.detail}
+              </p>
+
+              <div className="mt-auto w-full pt-8">
+                <ExternalServiceLink
+                  service={method.service}
+                  label={method.action}
+                  variant="card"
+                />
+              </div>
             </article>
           ))}
         </div>
-        <p className="contact-cv-note">Resume downloads in English and Hebrew will be added when the approved PDF files are ready.</p>
-        <div className="page-bottom-actions"><Link href="/" className="action-btn action-btn--primary">Back to projects <span aria-hidden="true">←</span></Link></div>
+
+        <p className="mx-auto mt-8 max-w-2xl text-center text-sm leading-relaxed text-[#637879]">
+          {t.resumeNote}
+        </p>
+
+        <div className="page-bottom-actions mt-9">
+          <Link
+            href="/"
+            className="action-btn action-btn--primary"
+          >
+            <span>{t.backToProjects}</span>
+            <span aria-hidden="true">←</span>
+          </Link>
+        </div>
       </div>
     </main>
   );
