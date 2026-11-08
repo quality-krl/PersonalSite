@@ -19,14 +19,48 @@ export default function Home() {
           with Python, Playwright, and modern QA practices.
         </p>
 
-        <a
-          href="#projects"
-          className="mt-8 rounded-lg bg-cyan-500 px-6 py-3 font-semibold text-black transition-colors hover:bg-cyan-400"
-        >
-          View My Projects
-        </a>
+
+<div className="mt-8 flex flex-wrap justify-center gap-4">
+  <a
+    href="#projects"
+    className="rounded-lg bg-cyan-500 px-6 py-3 font-semibold text-black transition-colors hover:bg-cyan-400"
+  >
+    View My Projects
+  </a>
+
+  <a
+    href="#about"
+    className="rounded-lg border border-zinc-600 px-6 py-3 font-semibold text-white transition-colors hover:border-cyan-400 hover:text-cyan-400"
+  >
+    About Me
+  </a>
+</div>
+
 
       </section>
+
+{/* About Section */}
+<section id="about" className="px-6 py-24">
+  <div className="mx-auto max-w-4xl text-center">
+
+    <h2 className="text-4xl font-bold">
+      About Me
+    </h2>
+
+    <p className="mt-8 text-lg leading-8 text-zinc-400">
+      I am a QA Automation Engineer focused on building
+      reliable, maintainable, and scalable test automation
+      solutions.
+    </p>
+
+    <p className="mt-6 text-lg leading-8 text-zinc-400">
+      My testing philosophy emphasizes risk-based coverage,
+      critical business workflows, and identifying hidden
+      defects beyond documented requirements.
+    </p>
+
+  </div>
+</section>
 
       {/* Projects Section */}
       <section
