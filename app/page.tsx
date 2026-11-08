@@ -167,6 +167,51 @@ export default function Home() {
         </div>
       </section>
 
+{/* Contact Section */}
+<section id="contact" className="px-6 py-24">
+  <div className="mx-auto max-w-4xl text-center">
+    <h2 className="text-4xl font-bold">
+      Get In Touch
+    </h2>
+
+    <p className="mt-6 text-lg text-zinc-400">
+      Interested in discussing QA automation,
+      software testing, or potential opportunities?
+      Feel free to connect with me.
+    </p>
+
+
+<div className="mt-8 flex flex-wrap justify-center gap-4">
+  <a
+    href="https://github.com/quality-krl"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="rounded-lg bg-cyan-500 px-6 py-3 font-semibold text-black transition-colors hover:bg-cyan-400"
+  >
+    GitHub Profile ↗
+  </a>
+
+  <a
+    href="https://www.linkedin.com/in/kirill-kovalevski/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="rounded-lg border border-cyan-500 px-6 py-3 font-semibold text-cyan-400 transition-colors hover:bg-cyan-500 hover:text-black"
+  >
+    LinkedIn ↗
+  </a>
+
+<a
+  href="mailto:kirill.kovalevski.qa@gmail.com"
+  className="rounded-lg border border-zinc-600 px-6 py-3 font-semibold text-white transition-colors hover:border-cyan-400 hover:text-cyan-400"
+>
+  Send Email ✉
+</a>
+
+</div>
+
+  </div>
+</section>
+
     </main>
   );
 }
