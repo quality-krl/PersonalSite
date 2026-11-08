@@ -34,6 +34,14 @@ export default function Home() {
   >
     About Me
   </a>
+
+<a
+  href="#skills"
+  className="rounded-lg border border-zinc-600 px-6 py-3 font-semibold text-white transition-colors hover:border-cyan-400 hover:text-cyan-400"
+>
+  My Skills
+</a>
+
 </div>
 
 
@@ -58,6 +66,44 @@ export default function Home() {
       critical business workflows, and identifying hidden
       defects beyond documented requirements.
     </p>
+
+  </div>
+</section>
+
+{/* Skills Section */}
+<section id="skills" className="px-6 py-24">
+  <div className="mx-auto max-w-5xl">
+
+    <h2 className="text-center text-4xl font-bold">
+      Skills & Technologies
+    </h2>
+
+    <p className="mt-4 text-center text-zinc-400">
+      Technologies and tools I use in software testing
+      and test automation.
+    </p>
+
+    <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4">
+      {[
+        "Python",
+        "Playwright",
+        "Pytest",
+        "REST API",
+        "Postman",
+        "SQL",
+        "Git",
+        "GitHub",
+      ].map((skill) => (
+        <div
+          key={skill}
+          className="rounded-xl border border-zinc-800 bg-zinc-900 p-6 text-center transition-colors hover:border-cyan-500"
+        >
+          <span className="font-medium text-zinc-200">
+            {skill}
+          </span>
+        </div>
+      ))}
+    </div>
 
   </div>
 </section>
