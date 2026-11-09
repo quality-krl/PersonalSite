@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLanguage } from "../../components/LanguageProvider";
 
 /**
@@ -144,7 +144,7 @@ const copy = {
     deliverables:
       ["STD — Software Test Description", "STR — Software Test Report", "Test-case and bug traceability", "Documented defect case files"],
     evidenceNote:
-      "Selected redacted screenshots, case evidence and test records may be added later. No downloadable report or public defect evidence is claimed to be available on this site yet.",
+      "Five excerpts from the original project STD/STR are now available above. These are historical report pages, not new executions. The complete report is not publicly downloadable here.",
     closing:
       "Good QA reveals the differences between what a user expects, what the system displays, and what the system actually does.",
     returnButton: "Explore more projects",
@@ -274,7 +274,7 @@ const copy = {
     deliverables:
       ["STD — תיאור ותכנון בדיקות", "STR — דוח תוצאות בדיקה", "עקיבות בין מקרי בדיקה לבאגים", "תיעוד ממצאים ותרחישי שחזור"],
     evidenceNote:
-      "בהמשך אפשר להוסיף צילומי מסך וראיות בדיקה מושחרות ומאושרות. העמוד אינו טוען שקובצי הדוח או הראיות זמינים כרגע להורדה ציבורית.",
+      "חמישה קטעי ראיות מהדוח המקורי זמינים כעת לצפייה בהמשך העמוד. אלה עמודי דוח היסטוריים ולא הרצות חדשות. הדוח המלא אינו זמין להורדה מהאתר.",
     closing:
       "בדיקות איכות טובות חושפות את הפער בין מה שהמשתמש מצפה לראות, מה שהממשק מציג ומה שהמערכת עושה בפועל.",
     returnButton: "לפרויקטים נוספים",
@@ -295,6 +295,140 @@ function ResultBar({ passed, failed, notExecuted, label }: {
       <div className="bg-[#C77A52]" style={{ width: `${100 * failed / total}%` }} />
       <div className="bg-[#A4B6B2]" style={{ width: `${100 * notExecuted / total}%` }} />
     </div>
+  );
+}
+
+
+
+// Evidence extracted from the user's original 73-page KSP STD/STR report.
+// Pages are historical report excerpts, not claims about the current KSP site.
+const kspMediaUrl = (file: string) => `../../media/ksp/${file}`;
+
+const kspEvidence = {
+  en: {
+    eyebrow: "TEST EXECUTION / PRIMARY EVIDENCE",
+    title: "See the failures, not only the report.",
+    intro: "Original recordings and screenshots from the historical KSP manual QA project. These examples describe observations made during the test cycle, not today's production behavior.",
+    videoTitle: "RECORDED REPRODUCTIONS",
+    imagesTitle: "SCREENSHOT INVESTIGATIONS",
+    playLabel: "Recorded test",
+    imageLabel: "Evidence image",
+    close: "Close",
+    enlarge: "Enlarge evidence",
+    videos: [
+      { file: "cart-counter-demo.mp4", poster: "cart-counter-demo-poster.webp", title: "KSP-6 · Cart counter synchronization", detail: "Recorded shopping-cart flow demonstrating a mismatch between selected quantity and the cart indicator." },
+      { file: "search-uri-demo.mp4", poster: "search-uri-demo-poster.webp", title: "KSP-12 · Malformed URI on search", detail: "Reproduction of the percent-character search input leading to a malformed URI error page." },
+    ],
+    images: [
+      { file: "search-mismatch.webp", title: "KSP-5 · Misleading search results", detail: "The query and the presented alternative product results do not correspond clearly." },
+      { file: "uri-en.webp", title: "KSP-12 · English error state", detail: "Malformed URI error after submitting a percent character in English mode." },
+      { file: "uri-ru.webp", title: "KSP-12 · Russian error state", detail: "Same class of error reproduced in Russian mode." },
+      { file: "cls.webp", title: "KSP-9 · Core Web Vitals", detail: "PageSpeed Insights field report from March 31, 2026, showing CLS 0.77; a historical measurement." },
+      { file: "i18n-en.webp", title: "KSP-11 · Hebrew in English mode", detail: "Hebrew labels remain in the search suggestions while the website is in English." },
+      { file: "i18n-ru.webp", title: "KSP-11 · Hebrew in Russian mode", detail: "The search dropdown contains untranslated Hebrew labels in Russian mode." },
+      { file: "registration.webp", title: "KSP-1 · Name-field validation", detail: "Registration name fields accepting atypical special-character input during the recorded test cycle." },
+      { file: "worlds-ru.webp", title: "KSP-19 · Worlds layout", detail: "Inconsistent Worlds button presentation in Russian mode, alongside category localization differences." },
+    ],
+    note: "Images and videos are historical project evidence. They are not evidence of current site defects. Recordings are silent copies and may include public product information. The full original test report is not published here.",
+  },
+  he: {
+    eyebrow: "ביצוע בדיקות / ראיות מקוריות",
+    title: "לראות את התקלה, ולא רק לקרוא עליה.",
+    intro: "סרטונים וצילומי מסך מקוריים מתוך פרויקט הבדיקות הידניות של KSP. מדובר בממצאים מתקופת הבדיקות, ולא בטענות על מצב האתר כיום.",
+    videoTitle: "הקלטות שחזור תקלות",
+    imagesTitle: "חקירת ממצאים בצילומי מסך",
+    playLabel: "סרטון בדיקה",
+    imageLabel: "תמונת ראיה",
+    close: "סגירה",
+    enlarge: "הגדלת ראיה",
+    videos: [
+      { file: "cart-counter-demo.mp4", poster: "cart-counter-demo-poster.webp", title: "KSP-6 · מונה העגלה אינו מסונכרן", detail: "תיעוד תהליך בעגלת הקניות וחוסר התאמה בין הכמות שנבחרה למונה בעגלה." },
+      { file: "search-uri-demo.mp4", poster: "search-uri-demo-poster.webp", title: "KSP-12 · שגיאת URI בחיפוש", detail: "שחזור חיפוש עם תו אחוז המוביל לדף שגיאה של כתובת לא תקינה." },
+    ],
+    images: [
+      { file: "search-mismatch.webp", title: "KSP-5 · תוצאות חיפוש לא תואמות", detail: "פער בין שאילתת החיפוש לתוצאות חלופיות המוצגות ללא הסבר מספק." },
+      { file: "uri-en.webp", title: "KSP-12 · שגיאה במצב אנגלית", detail: "דף שגיאת URI לאחר הזנת תו אחוז במצב אנגלית." },
+      { file: "uri-ru.webp", title: "KSP-12 · שגיאה במצב רוסית", detail: "אותו סוג כשל משוחזר גם במצב רוסית." },
+      { file: "cls.webp", title: "KSP-9 · מדדי Core Web Vitals", detail: "דוח היסטורי מ־31 במרץ 2026 המציג ערך CLS של 0.77." },
+      { file: "i18n-en.webp", title: "KSP-11 · טקסט עברי במצב אנגלית", detail: "תוויות בעברית בתפריט הצעות החיפוש כאשר שפת האתר היא אנגלית." },
+      { file: "i18n-ru.webp", title: "KSP-11 · טקסט עברי במצב רוסית", detail: "תוויות בעברית שלא תורגמו בתפריט חיפוש במצב רוסית." },
+      { file: "registration.webp", title: "KSP-1 · אימות קלט בהרשמה", detail: "הזנת תווים חריגים בשדות שם פרטי ומשפחה במחזור הבדיקות המתועד." },
+      { file: "worlds-ru.webp", title: "KSP-19 · תצוגת Worlds", detail: "חוסר עקביות בתצוגת כפתור Worlds במצב רוסית, לצד פערי לוקליזציה בקטגוריות." },
+    ],
+    note: "הסרטונים והתמונות הם תיעוד היסטורי של הפרויקט, ולא ראיה למצב האתר כיום. עותקי הסרטונים ללא שמע ומציגים מידע ציבורי על מוצרים. הדוח המלא אינו מפורסם באתר.",
+  },
+} as const;
+
+function KSPEvidenceGallery({ language }: { language: "en" | "he" }) {
+  const t = kspEvidence[language];
+  const [selected, setSelected] = useState<number | null>(null);
+  useEffect(() => {
+    if (selected === null) return;
+    const onEscape = (event: KeyboardEvent) => { if (event.key === "Escape") setSelected(null); };
+    document.addEventListener("keydown", onEscape);
+    return () => document.removeEventListener("keydown", onEscape);
+  }, [selected]);
+  return (
+    <section className="mb-12" aria-labelledby="ksp-evidence-real-title">
+      <p className="section-index">{t.eyebrow}</p>
+      <h2 id="ksp-evidence-real-title" className="mt-3 text-2xl font-extrabold text-[#19343D] md:text-3xl">{t.title}</h2>
+      <p className="mt-3 max-w-4xl text-sm leading-7 text-[#617879] md:text-base">{t.intro}</p>
+      <h3 className="mb-4 mt-8 text-xs font-extrabold tracking-wide text-[#0B7770]">{t.videoTitle}</h3>
+      <div className="grid gap-4 md:grid-cols-2">
+        {t.videos.map((video, i) => (
+          <article key={video.file} className="glass-surface min-w-0 overflow-hidden p-4 sm:p-6">
+            <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+              <h4 className="text-base font-extrabold text-[#19343D]">{video.title}</h4>
+              <span className="rounded-full bg-[#E4F3ED] px-3 py-1.5 text-[10px] font-bold text-[#0B7770]">{t.playLabel} · 0{i+1}</span>
+            </div>
+            <video
+              controls
+              playsInline
+              preload="metadata"
+              poster={kspMediaUrl(video.poster)}
+              className="aspect-video w-full rounded-xl border border-[#C6D8D1] bg-[#102930] object-contain"
+              aria-label={video.title}
+            >
+              <source src={kspMediaUrl(video.file)} type="video/mp4" />
+            </video>
+            <p className="mt-3 text-sm leading-6 text-[#617879]">{video.detail}</p>
+          </article>
+        ))}
+      </div>
+      <h3 className="mb-4 mt-9 text-xs font-extrabold tracking-wide text-[#0B7770]">{t.imagesTitle}</h3>
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {t.images.map((item, i) => (
+          <article key={item.file} className="glass-surface min-w-0 overflow-hidden p-4">
+            <button
+              type="button"
+              onClick={() => setSelected(i)}
+              aria-label={`${t.enlarge}: ${item.title}`}
+              className="group relative block w-full overflow-hidden rounded-xl border border-[#D7E5DE] bg-[#F2F5F2] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0B7770]"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={kspMediaUrl(item.file)} alt={item.title} loading="lazy" className="h-52 w-full object-contain transition-transform duration-300 group-hover:scale-[1.025]" />
+              <span aria-hidden="true" className="absolute bottom-2 end-2 rounded-full bg-[#0B7770]/95 px-3 py-1.5 text-[10px] font-bold text-white">＋</span>
+            </button>
+            <p className="mt-3 text-[10px] font-bold tracking-wide text-[#0B7770]">{t.imageLabel} · 0{i+1}</p>
+            <h4 className="mt-1 text-sm font-extrabold text-[#19343D]">{item.title}</h4>
+            <p className="mt-2 text-xs leading-6 text-[#617879]">{item.detail}</p>
+          </article>
+        ))}
+      </div>
+      <p className="mt-5 text-xs leading-6 text-[#758B83]">{t.note}</p>
+      {selected !== null && (
+        <div role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setSelected(null); }} className="fixed inset-0 z-[100] flex items-center justify-center bg-[#071C22]/90 p-3 sm:p-7">
+          <div role="dialog" aria-modal="true" aria-label={t.images[selected].title} className="relative flex max-h-[95dvh] w-full max-w-6xl flex-col overflow-hidden rounded-2xl bg-white p-3 shadow-2xl sm:p-5">
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <h3 className="text-sm font-bold text-[#19343D]">{t.images[selected].title}</h3>
+              <button type="button" autoFocus onClick={() => setSelected(null)} className="shrink-0 rounded-full border border-[#D6E5DE] bg-[#F1F7F3] px-4 py-2 text-sm font-bold text-[#0B7770]">{t.close} ×</button>
+            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={kspMediaUrl(t.images[selected].file)} alt={t.images[selected].title} className="min-h-0 max-h-[75dvh] w-full object-contain" />
+          </div>
+        </div>
+      )}
+    </section>
   );
 }
 
@@ -327,26 +461,18 @@ export default function KSPCaseStudy() {
               <span className="rounded-full border border-[#DCE7E2] bg-white/80 px-3 py-2 text-xs font-semibold text-[#637879]">{t.environment}</span>
             </div>
           </div>
-          <div className="glass-surface relative flex min-h-[230px] flex-col items-center justify-center overflow-hidden !bg-gradient-to-br from-[#F6FAF6] via-[#D9EEE7] to-[#EDE6D8] p-7 text-center">
-            <div className="pointer-events-none absolute -left-12 -top-12 h-48 w-48 rounded-full bg-[#C1E8DC]/65 blur-3xl" />
-            <div className="relative flex w-full max-w-[270px] flex-col gap-3 rounded-2xl border border-white/90 bg-white/80 p-4 shadow-[0_18px_45px_rgba(22,84,75,0.13)]">
-              <div className="flex items-center justify-between gap-2" dir="ltr">
-                <span className="rounded-md bg-[#19343D] px-2.5 py-1 text-[11px] font-bold tracking-widest text-white">KSP</span>
-                <span className="text-[10px] font-bold tracking-wide text-[#0B7770]">QA / TEST DESIGN</span>
-              </div>
-              <div className="flex items-center gap-3 rounded-xl bg-[#E8F3EF] px-3 py-4" dir="ltr">
-                <span className="text-3xl text-[#0B7770]" aria-hidden="true">⌕</span>
-                <div className="min-w-0 flex-1 space-y-2">
-                  <div className="h-2 w-4/5 rounded-full bg-[#94C6B7]" />
-                  <div className="h-2 w-2/3 rounded-full bg-[#B8DCCF]" />
-                </div>
-                <span className="rounded-lg bg-white px-2.5 py-2 text-[#0B7770]" aria-hidden="true">🛒</span>
-              </div>
-              <div className="grid grid-cols-3 gap-2" aria-hidden="true">
-                <span className="h-2 rounded bg-[#CBE3DB]" /><span className="h-2 rounded bg-[#86BFAF]" /><span className="h-2 rounded bg-[#D5C1A7]" />
-              </div>
-            </div>
-            <p className="relative mt-5 text-xs font-black tracking-[0.16em] text-[#19343D]" dir="ltr">WEB · MANUAL QA · RISK</p>
+          <div className="glass-surface relative flex min-h-[230px] flex-col items-center justify-center gap-3 overflow-hidden !bg-gradient-to-br from-[#F6FAF6] via-[#D9EEE7] to-[#EDE6D8] p-4 text-center">
+            {/* Original report cover, not a screenshot of the present-day KSP website. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={kspMediaUrl("report-cover.webp")}
+              alt={he ? "שער דוח בדיקות KSP המקורי" : "Cover of the original KSP software test report"}
+              className="relative max-h-[220px] w-full max-w-[185px] rounded-lg border border-[#D6E4DC] bg-white object-contain shadow-[0_12px_32px_rgba(18,60,53,0.16)]"
+              loading="eager"
+            />
+            <p className="text-center text-[10px] font-bold tracking-wide text-[#375D59]">
+              {he ? "שער דוח הבדיקות המקורי · 2026" : "Original test report cover · 2026"}
+            </p>
           </div>
         </header>
 
@@ -454,6 +580,8 @@ export default function KSPCaseStudy() {
             </article>
           </div>
         </section>
+
+        <KSPEvidenceGallery language={language} />
 
         <section className="mb-10 grid gap-4 md:grid-cols-2">
           <div className="glass-surface p-6 md:p-8">

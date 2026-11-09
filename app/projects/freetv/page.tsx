@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useLanguage } from "../../components/LanguageProvider";
 
 /**
  * FreeTV iOS QA case study.
  * Historical snapshot: STR-FTV-001 (June 2026), app v1.25.32 (build 142).
  * Displayed numbers describe the documented project execution, not current FreeTV quality.
- * No confidential requests, authentication data, or proprietary screenshots are exposed.
+ * Selected user-supplied evidence is linked as redacted assets, with historical context.
  */
 
 const report = {
@@ -265,6 +266,168 @@ function PercentageBar({
   );
 }
 
+
+
+// User-supplied portfolio evidence, edited for public display. Paths are relative to
+// /projects/freetv/ so they work locally and under GitHub Pages /PersonalSite/ basePath.
+const mediaUrl = (file: string) => `../../media/freetv/${file}`;
+
+const evidenceCopy = {
+  en: {
+    eyebrow: "REAL PROJECT EVIDENCE",
+    title: "See the investigation, not just the claim.",
+    intro: "Selected artifacts from the April–June 2026 portfolio test cycle. Recordings are edited demonstrations, not uninterrupted proof of elapsed time. Media has been redacted for public display.",
+    clips: "RECORDED TEST WORKFLOWS",
+    otpTitle: "OTP expiration investigation",
+    otpNote: "Edited 67-second demonstration of the authentication workflow. The timing observations were recorded separately in TestRail and Jira (FTV-5). OTP values and message previews are masked; audio removed.",
+    watchTitle: "Profile / watchlist separation",
+    watchNote: "Short mobile recording of a user-facing profile and watchlist scenario (TC-WTCH-005). Illustrates the tested UI flow; not a claim about today's app.",
+    stills: "INSPECTABLE ARTIFACTS",
+    images: [
+      {title:"FTV-5 — Jira defect record",detail:"Severity, reproduction steps, observed OTP lifetime and traceability to FR-007 / NFR-011."},
+      {title:"TC-API-AUTH-005 — TestRail execution",detail:"Failed test-case record with observed intervals and its connection to FTV-5."},
+      {title:"Fiddler — request and headers",detail:"Captured HTTPS PUT request returning HTTP 200; request identifiers and internal values concealed."},
+      {title:"Fiddler — response inspection",detail:"Recorded HTTP 200 and an empty response body at this inspected step; neither alone proves OTP lifetime."},
+      {title:"Postman — constrained replay",detail:"Replay returned HTTP 400 with DEVICE_CANNOT_BE_ASSIGNED. This was blocked at device validation, not proof of OTP rejection."},
+    ],
+    lightbox: "Enlarge image",
+    close: "Close image",
+    limitsTitle: "Evidence boundaries",
+    limits: "The report records acceptance at 75 seconds, 2:48, 5:00, 10:10 and 30:00, with rejection at about 61 minutes. The short video does not independently establish those timings. Postman replay was blocked by device/session validation. These observations refer exclusively to the documented 2026 test cycle.",
+    safety: "Public-safe copies: identifiers and authentication values masked; original files not bundled.",
+    clipLabel: "Video recording",
+    screenLabel: "Screenshot",
+  },
+  he: {
+    eyebrow: "ראיות מקוריות מהפרויקט",
+    title: "לא רק תיאור הבדיקה — גם תיעוד העבודה.",
+    intro: "ראיות נבחרות ממחזור הבדיקות של אפריל–יוני 2026. הסרטונים נערכו להדגמה ואינם מהווים הוכחה להמתנה רציפה. הקבצים עברו השחרה לצורך פרסום.",
+    clips: "סרטוני הבדיקות",
+    otpTitle: "חקירת תוקף קוד OTP",
+    otpNote: "הדגמה ערוכה באורך כ־67 שניות של תהליך ההזדהות. תצפיות הזמנים תועדו בנפרד ב־TestRail וב־Jira, תחת FTV-5. ערכי OTP והודעות הוסתרו; השמע הוסר.",
+    watchTitle: "הפרדת רשימות צפייה בין פרופילים",
+    watchNote: "הקלטת מובייל קצרה של תרחיש פרופילים ורשימות צפייה (TC-WTCH-005). מציגה את תהליך ה־UI שנבדק ולא טוענת דבר על גרסת האפליקציה כיום.",
+    stills: "מסמכי ראיות לצפייה",
+    images: [
+      {title:"FTV-5 — דיווח תקלה ב־Jira",detail:"חומרה, צעדי שחזור, תצפית על משך תוקף הקוד ועקיבות ל־FR-007 / NFR-011."},
+      {title:"TC-API-AUTH-005 — הרצה ב־TestRail",detail:"דיווח על מקרה בדיקה שנכשל, מרווחי זמן שנצפו וקישור לתקלה FTV-5."},
+      {title:"Fiddler — בקשה ו־Headers",detail:"בקשת HTTPS מסוג PUT שהחזירה HTTP 200. מזהים וערכי מערכת פנימיים הוסתרו."},
+      {title:"Fiddler — בדיקת תגובה",detail:"תיעוד HTTP 200 וגוף תגובה ריק בצעד שנבדק; נתונים אלה לבדם אינם מאמתים את משך תוקף ה־OTP."},
+      {title:"Postman — ניסיון שחזור מוגבל",detail:"התקבלה תשובת HTTP 400 עם DEVICE_CANNOT_BE_ASSIGNED. הבקשה נחסמה באימות המכשיר ולא הוכיחה דחיית OTP."},
+    ],
+    lightbox: "הגדלת תמונה",
+    close: "סגירת תמונה",
+    limitsTitle: "גבולות הראיות",
+    limits: "בדוח מתועדת קבלת OTP לאחר 75 שניות, 2:48, 5:00, 10:10 ו־30:00 דקות, ודחייה לאחר כ־61 דקות. הסרטון הקצר אינו מאמת באופן עצמאי את פרקי הזמן האלה. הבקשה ב־Postman נחסמה עקב אימות מכשיר או Session. הממצאים מתייחסים למחזור הבדיקות שתועד ב־2026 בלבד.",
+    safety: "עותקים מותאמים לפרסום: מזהים וערכי הזדהות הוסתרו. קובצי המקור אינם כלולים בחבילה.",
+    clipLabel: "סרטון בדיקה",
+    screenLabel: "צילום מסך",
+  },
+} as const;
+
+const evidenceImageFiles = [
+  "ftv5-jira.webp",
+  "testrail-otp-results.webp",
+  "fiddler-headers.webp",
+  "fiddler-response.webp",
+  "postman-replay.webp",
+] as const;
+
+function EvidenceGallery({ language }: { language: "en" | "he" }) {
+  const t = evidenceCopy[language];
+  const [openImage, setOpenImage] = useState<number | null>(null);
+  useEffect(() => {
+    if (openImage === null) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpenImage(null);
+    };
+    document.addEventListener("keydown", closeOnEscape);
+    return () => document.removeEventListener("keydown", closeOnEscape);
+  }, [openImage]);
+  const videos = [
+    { file: "otp-expiry-demo.mp4", poster: "otp-poster.webp", title: t.otpTitle, desc: t.otpNote },
+    { file: "watchlist-profile-demo.mp4", poster: "watchlist-poster.webp", title: t.watchTitle, desc: t.watchNote },
+  ];
+
+  return (
+    <section className="mb-12" aria-labelledby="freetv-evidence-title">
+      <p className="section-index">{t.eyebrow}</p>
+      <h2 id="freetv-evidence-title" className="mt-3 max-w-4xl text-2xl font-extrabold text-[#19343D] md:text-3xl">{t.title}</h2>
+      <p className="mt-4 max-w-4xl text-sm leading-7 text-[#637879] md:text-base">{t.intro}</p>
+
+      <h3 className="mt-9 mb-4 text-xs font-extrabold tracking-wide text-[#0B7770]">{t.clips}</h3>
+      <div className="grid gap-4 lg:grid-cols-2">
+        {videos.map((video, i) => (
+          <article key={video.file} className="glass-surface min-w-0 overflow-hidden p-5 sm:p-6">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <strong className="text-base text-[#19343D]">{video.title}</strong>
+              <span className="rounded-full bg-[#E5F2ED] px-3 py-1.5 text-[11px] font-bold text-[#0B7770]">{t.clipLabel} · 0{i + 1}</span>
+            </div>
+            <div className="my-5 flex justify-center rounded-2xl bg-[#112D34] p-3 sm:p-5">
+              <video
+                id={i === 0 ? "freetv-otp-player" : undefined}
+                className="block aspect-[9/19.5] max-h-[450px] w-full max-w-[225px] rounded-xl bg-black object-contain shadow-2xl"
+                controls
+                playsInline
+                preload="metadata"
+                poster={mediaUrl(video.poster)}
+                aria-label={video.title}
+              >
+                <source src={mediaUrl(video.file)} type="video/mp4" />
+              </video>
+            </div>
+            <p className="text-sm leading-7 text-[#5B7273]">{video.desc}</p>
+          </article>
+        ))}
+      </div>
+
+      <h3 className="mt-9 mb-4 text-xs font-extrabold tracking-wide text-[#0B7770]">{t.stills}</h3>
+      <div className="grid gap-4 sm:grid-cols-2">
+        {evidenceImageFiles.map((file, i) => (
+          <article key={file} className="glass-surface min-w-0 overflow-hidden p-4 sm:p-5">
+            <button
+              type="button"
+              onClick={() => setOpenImage(i)}
+              aria-label={`${t.lightbox}: ${t.images[i].title}`}
+              className="group block w-full overflow-hidden rounded-xl border border-[#D5E5DF] bg-[#F4F8F6] text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0B7770]"
+            >
+              {/* Public screenshots are provided as media assets; no Next Image optimization required. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={mediaUrl(file)} alt={t.images[i].title} loading="lazy" className="h-48 w-full object-contain transition-transform duration-300 group-hover:scale-[1.025] sm:h-52" />
+            </button>
+            <span className="mt-4 inline-block text-[10px] font-bold tracking-wider text-[#0B7770]">{t.screenLabel} · 0{i + 1}</span>
+            <h4 className="mt-1 font-bold text-[#19343D]">{t.images[i].title}</h4>
+            <p className="mt-2 text-xs leading-6 text-[#617879]">{t.images[i].detail}</p>
+          </article>
+        ))}
+      </div>
+
+      <aside className="mt-6 rounded-2xl border border-[#E7D9C0] bg-[#FBF6EC] p-5 sm:p-6">
+        <h3 className="font-extrabold text-[#80633F]">{t.limitsTitle}</h3>
+        <p className="mt-2 text-sm leading-7 text-[#665F55]">{t.limits}</p>
+      </aside>
+      <p className="mt-4 text-xs leading-6 text-[#82938F]">{t.safety}</p>
+
+      {openImage !== null && (
+        <div
+          role="presentation"
+          onMouseDown={(event) => { if (event.target === event.currentTarget) setOpenImage(null); }}
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-[#071C22]/90 p-3 sm:p-7"
+        >
+          <div role="dialog" aria-modal="true" aria-label={t.images[openImage].title} className="relative flex max-h-[95dvh] w-full max-w-6xl flex-col overflow-hidden rounded-2xl bg-white p-3 shadow-2xl sm:p-5">
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <h3 className="text-sm font-bold text-[#19343D]">{t.images[openImage].title}</h3>
+              <button type="button" autoFocus onClick={() => setOpenImage(null)} className="shrink-0 rounded-full border border-[#D6E5DE] bg-[#F1F7F3] px-4 py-2 text-sm font-bold text-[#0B7770]">{t.close} ×</button>
+            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={mediaUrl(evidenceImageFiles[openImage])} alt={t.images[openImage].title} className="min-h-0 max-h-[75dvh] w-full object-contain" />
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
 export default function FreeTVCaseStudy() {
   const { language } = useLanguage();
   const he = language === "he";
@@ -305,14 +468,18 @@ export default function FreeTVCaseStudy() {
             </div>
           </div>
 
-          <div className="glass-surface relative flex min-h-[240px] flex-col items-center justify-center overflow-hidden !bg-gradient-to-br from-[#F3FBF7] via-[#D6ECE6] to-[#EAE5D9] p-8 text-center">
-            <div className="pointer-events-none absolute -right-12 -top-10 h-48 w-48 rounded-full bg-[#A5DED0]/55 blur-3xl" />
-            <div className="relative flex h-28 w-48 items-center justify-center rounded-[24px] border-[5px] border-[#244952] bg-gradient-to-br from-[#19343D] to-[#0C776E] shadow-[0_20px_40px_rgba(16,76,69,0.2)]">
-              <span className="text-5xl text-white" aria-hidden="true">▶</span>
-              <div className="absolute -bottom-3 h-3 w-16 rounded-b-lg bg-[#244952]" />
-            </div>
-            <p className="relative mt-7 text-sm font-black tracking-[0.16em] text-[#19343D]" dir="ltr">MOBILE · API · QA</p>
-            <p className="relative mt-2 max-w-xs text-xs leading-6 text-[#637879]">{t.snapshot}</p>
+          <div className="glass-surface relative flex min-h-[240px] flex-col items-center justify-center gap-3 overflow-hidden !bg-gradient-to-br from-[#F2F9F4] via-[#D7ECE3] to-[#EDE6D9] p-4 sm:p-5">
+            {/* Original project report cover; the video evidence remains in the gallery below. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={mediaUrl("report-cover.webp")}
+              alt={he ? "שער מסמך הבדיקות המקורי של פרויקט FreeTV" : "Cover of the original FreeTV QA documentation report"}
+              className="relative max-h-[220px] w-full max-w-[230px] rounded-lg border border-[#D6E4DC] bg-white object-contain shadow-[0_12px_32px_rgba(18,60,53,0.16)]"
+              loading="eager"
+            />
+            <p className="relative text-center text-[10px] font-bold tracking-wide text-[#375D59]">
+              {he ? "שער תיעוד הפרויקט · אפריל–יוני 2026" : "Project documentation cover · Apr–Jun 2026"}
+            </p>
           </div>
         </header>
 
@@ -447,11 +614,7 @@ export default function FreeTVCaseStudy() {
           </div>
         </section>
 
-        <section className="glass-surface mb-9 p-6 md:p-9" aria-labelledby="freetv-evidence-title">
-          <p className="section-index">{t.evidence}</p>
-          <h2 id="freetv-evidence-title" className="mt-3 text-2xl font-extrabold text-[#19343D]">{t.evidenceTitle}</h2>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-[#637879] md:text-base">{t.evidenceText}</p>
-        </section>
+        <EvidenceGallery language={language} />
 
         <p className="mx-auto mb-9 max-w-3xl text-center text-xl font-bold leading-relaxed text-[#0B7770] md:text-2xl">{t.closing}</p>
         <div className="page-bottom-actions">

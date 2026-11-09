@@ -58,6 +58,23 @@ const caseStudyRoutes: Partial<Record<ProjectId, string>> = {
 };
 
 function ProjectArtwork({ id, label }: { id: ProjectId; label: string }) {
+  // QA_PROJECT_COVERS_V4: first impression = original dossier cover where available.
+  const coverProjects = ["freetv", "ksp", "sylius", "precision", "eargym"];
+  if (coverProjects.includes(id)) {
+    return (
+      <div className={`project-art project-art--${id}`} role="img" aria-label={label}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={`./media/${id}/carousel-cover.webp`}
+          alt=""
+          loading="eager"
+          draggable={false}
+          style={{ width: "100%", height: "100%", display: "block", objectFit: "cover" }}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className={`project-art project-art--${id}`} aria-hidden="true">
       <div className="art-aurora" />
