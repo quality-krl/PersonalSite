@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import Link from "next/link";
 import { useLanguage } from "./LanguageProvider";
 import { translations } from "../i18n/translations";
 
@@ -328,14 +329,23 @@ export default function ProjectCarousel() {
                 {active.tags.map((tag) => <span key={tag} dir="auto">{tag}</span>)}
               </div>
               <div className="card-actions">
-                <button
-                  ref={triggerRef}
-                  type="button"
-                  className="action-btn action-btn--primary"
-                  onClick={openDetails}
-                >
-                  {labels.viewCaseStudy} <span aria-hidden="true">↗</span>
-                </button>
+                {active.id === "sylius" ? (
+                  <Link
+                    href="/projects/sylius"
+                    className="action-btn action-btn--primary"
+                  >
+                    {labels.viewCaseStudy} <span aria-hidden="true">↗</span>
+                  </Link>
+                ) : (
+                  <button
+                    ref={triggerRef}
+                    type="button"
+                    className="action-btn action-btn--primary"
+                    onClick={openDetails}
+                  >
+                    {labels.viewCaseStudy} <span aria-hidden="true">↗</span>
+                  </button>
+                )}
                 {active.github && (
                   <a
                     className="action-btn action-btn--outline project-source-link"
