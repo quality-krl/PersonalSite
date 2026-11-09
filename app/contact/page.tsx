@@ -44,7 +44,7 @@ export default function ContactPage() {
       service: "github",
       label: t.githubLabel,
       title: t.githubTitle,
-      detail: "github.com/quality-krl",
+      detail: ".github.com/quality-krl",
       action: t.githubAction,
     },
   ];

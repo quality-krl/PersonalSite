@@ -7,20 +7,37 @@ import ExternalServiceLink from "./ExternalServiceLink";
 
 export default function SiteFooter() {
   const { language } = useLanguage();
+
   const t = translations[language].footer;
+  const isHebrew = language === "he";
+
+  const displayName = isHebrew
+    ? "קיריל קובלבסקי"
+    : "Kirill Kovalevski";
 
   return (
-    <footer className="site-footer" dir="ltr">
-      <span>© Kirill Kovalevski</span>
+    <footer
+  className="site-footer site-footer--locale"
+  dir={isHebrew ? "rtl" : "ltr"}
+>
+      {/* Copyright */}
+      <span dir={isHebrew ? "rtl" : "ltr"}>
+        © {displayName}
+      </span>
 
+      {/* Bilingual motto */}
       <span
         className="footer-center"
-        dir={language === "he" ? "rtl" : "ltr"}
+        dir={isHebrew ? "rtl" : "ltr"}
       >
         {t.motto}
       </span>
 
-      <div className="footer-links footer-links--branded">
+      {/* External services */}
+      <div
+  className="footer-links footer-links--branded"
+  dir="ltr"
+>
         <ExternalServiceLink
           service="github"
           label="GitHub"

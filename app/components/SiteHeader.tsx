@@ -9,43 +9,69 @@ import { translations } from "../i18n/translations";
 
 export default function SiteHeader() {
   const { language } = useLanguage();
+
   const t = translations[language];
+
+  const isHebrew = language === "he";
+
+  const displayName = isHebrew
+    ? "קיריל קובלבסקי"
+    : "Kirill Kovalevski";
 
   return (
     <>
-      <a className="skip-link" href="#main-content">
+      {/* Accessibility */}
+      <a
+        className="skip-link"
+        href="#main-content"
+      >
         {t.navigation.skip}
       </a>
 
+      {/* Site header */}
       <header className="site-header">
-        <div
-          className="header-inner header-inner--language-layout"
-          dir="ltr"
-        >
-          {/* Brand - always on the right */}
+
+<div
+  className={`header-inner header-inner--language-layout ${
+    isHebrew ? "header-inner--hebrew" : "header-inner--english"
+  }`}
+  dir="ltr"
+>
+
+          {/* Brand */}
           <Link
             className="brand"
             href="/"
-            aria-label={`Kirill Kovalevski — ${t.navigation.home}`}
+            aria-label={`${displayName} — ${t.navigation.home}`}
           >
-            <span className="brand-mark" aria-hidden="true">
+            <span
+              className="brand-mark"
+              aria-hidden="true"
+            >
               <span>K</span>
               <span className="brand-spark" />
             </span>
 
             <span className="brand-copy">
-              <strong dir="ltr">
-                Kirill Kovalevski
+              <strong dir={isHebrew ? "rtl" : "ltr"}>
+                {displayName}
               </strong>
-              <small>{t.navigation.tagline}</small>
+
+              <small dir={isHebrew ? "rtl" : "ltr"}>
+                {t.navigation.tagline}
+              </small>
             </span>
           </Link>
 
-          {/* Navigation - centered independently */}
+          {/* Centered navigation */}
           <nav
             className="site-nav header-primary-nav"
-            aria-label="Main navigation"
-            dir={language === "he" ? "rtl" : "ltr"}
+            aria-label={
+              isHebrew
+                ? "ניווט ראשי"
+                : "Main navigation"
+            }
+            dir={isHebrew ? "rtl" : "ltr"}
           >
             <Link href="/">
               {t.navigation.home}
@@ -60,11 +86,14 @@ export default function SiteHeader() {
               href="/contact"
             >
               {t.navigation.contact}
-              <span aria-hidden="true">↗</span>
+
+              <span aria-hidden="true">
+                ↗
+              </span>
             </Link>
           </nav>
 
-          {/* Language control - separate from navigation */}
+          {/* Independent language switcher */}
           <div className="header-language-slot">
             <LanguageSwitcher />
           </div>
