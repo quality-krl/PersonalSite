@@ -46,6 +46,13 @@ const projects: ProjectConfig[] = [
   },
 ];
 
+// Project routes. The remaining concepts retain their detail dialog.
+const caseStudyRoutes: Partial<Record<ProjectId, string>> = {
+  sylius: "/projects/sylius",
+  freetv: "/projects/freetv",
+  ksp: "/projects/ksp",
+};
+
 function ProjectArtwork({ id, label }: { id: ProjectId; label: string }) {
   return (
     <div className={`project-art project-art--${id}`} aria-hidden="true">
@@ -183,6 +190,7 @@ export default function ProjectCarousel() {
 
   const copy = (id: ProjectId) => t.projects[id];
   const activeCopy = copy(active.id);
+  const caseStudyHref = caseStudyRoutes[active.id];
   const previousCopy = copy(previous.id);
   const nextCopy = copy(next.id);
 
@@ -329,9 +337,9 @@ export default function ProjectCarousel() {
                 {active.tags.map((tag) => <span key={tag} dir="auto">{tag}</span>)}
               </div>
               <div className="card-actions">
-                {active.id === "sylius" ? (
+                {caseStudyHref ? (
                   <Link
-                    href="/projects/sylius"
+                    href={caseStudyHref}
                     className="action-btn action-btn--primary"
                   >
                     {labels.viewCaseStudy} <span aria-hidden="true">↗</span>
