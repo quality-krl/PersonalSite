@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -6,6 +5,7 @@ import Link from "next/link";
 import { useLanguage } from "./LanguageProvider";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { translations } from "../i18n/translations";
+import { InteractiveBrand } from "./BrandMark";
 
 export default function SiteHeader() {
   const { language } = useLanguage();
@@ -39,29 +39,8 @@ export default function SiteHeader() {
 >
 
           {/* Brand */}
-          <Link
-            className="brand"
-            href="/"
-            aria-label={`${displayName} — ${t.navigation.home}`}
-          >
-            <span
-              className="brand-mark"
-              aria-hidden="true"
-            >
-              <span>K</span>
-              <span className="brand-spark" />
-            </span>
+         <InteractiveBrand />
 
-            <span className="brand-copy">
-              <strong dir={isHebrew ? "rtl" : "ltr"}>
-                {displayName}
-              </strong>
-
-              <small dir={isHebrew ? "rtl" : "ltr"}>
-                {t.navigation.tagline}
-              </small>
-            </span>
-          </Link>
 
           {/* Centered navigation */}
           <nav

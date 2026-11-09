@@ -52,7 +52,7 @@ export default function LanguageSwitcher() {
       "
     >
       <span aria-hidden="true" className="text-base">
-        {isEnglish ? "🇮🇱" : "🇬🇧"}
+        {isEnglish ? "🇮🇱" : "USA"}
       </span>
 
       <span>

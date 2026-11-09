@@ -1,4 +1,3 @@
-
 export const translations = {
   en: {
     navigation: {
@@ -141,29 +140,29 @@ export const translations = {
       },
       precision: {
         title: "PrecisionPlaybook",
-        eyebrow: "DESIGN CONCEPT",
+        eyebrow: "LIVE WEB TOOL",
         category: "QA WORKFLOW TOOL",
         description:
-          "A concept for clearer, structured defect reporting in two languages.",
+          "A bilingual bug-report builder that transforms QA findings into structured, copy-ready reports.",
         highlights: [
-          "Structured bug-report workflow concept",
-          "Bilingual English / Hebrew experience",
-          "Clarity and usability as design priorities",
+          "Implemented bug-report creation workflow",
+          "English and Hebrew with RTL/LTR support",
+          "Live application with accessible source code",
         ],
-        artLabel: "REPORTING WORKFLOW",
+        artLabel: "LIVE TOOL",
       },
       eargym: {
         title: "EarGym TestLab",
-        eyebrow: "INTERACTIVE CONCEPT",
-        category: "INTERACTIVE WEB EXPERIENCE",
+        eyebrow: "LIVE INTERACTIVE WEB APP",
+        category: "MUSIC · WEB · INTERACTIVE UI",
         description:
-          "An ear-training application concept bringing music, interaction and QA together.",
+          "A bilingual ear-training web app with note recognition, adjustable difficulty and immediate performance feedback.",
         highlights: [
-          "Interactive ear-training experience concept",
-          "Audio-oriented interface and feedback",
-          "Responsive design and user-flow testing",
+          "Interactive note recognition across three difficulty levels",
+          "Audio replay, reference tone, score and streak feedback",
+          "English and Hebrew interface with responsive layout",
         ],
-        artLabel: "INTERACTIVE AUDIO",
+        artLabel: "LIVE EAR TRAINER",
       },
     },
   },
@@ -309,29 +308,29 @@ export const translations = {
       },
       precision: {
         title: "PrecisionPlaybook",
-        eyebrow: "קונספט עיצובי",
+        eyebrow: "כלי WEB שפותח בפועל",
         category: "כלי לתהליכי QA",
         description:
-          "קונספט לכלי דו־לשוני שמטרתו לשפר את הבהירות והמבנה של תהליך דיווח הבאגים.",
+          "כלי דו־לשוני שפיתחתי ליצירת דיווחי באגים מובנים ומוכנים להעתקה.",
         highlights: [
-          "תכנון תהליך מובנה לדיווח תקלות",
-          "תמיכה באנגלית ובעברית",
-          "דגש על בהירות, שימושיות וחוויית משתמש",
+          "תהליך מובנה ליצירת דיווחי באגים",
+          "תמיכה בעברית ובאנגלית ובכיווניות RTL/LTR",
+          "אפליקציה פעילה עם קוד מקור זמין",
         ],
-        artLabel: "תהליך דיווח",
+        artLabel: "כלי פעיל",
       },
       eargym: {
         title: "EarGym TestLab",
-        eyebrow: "קונספט אינטראקטיבי",
-        category: "חוויית ווב אינטראקטיבית",
+        eyebrow: "אפליקציית Web פעילה",
+        category: "מוזיקה · ווב · ממשק אינטראקטיבי",
         description:
-          "קונספט לאפליקציה לפיתוח שמיעה מוזיקלית, המשלבת מוזיקה, אינטראקציה וחשיבה בתחום בדיקות התוכנה.",
+          "אפליקציה דו־לשונית לאימון שמיעה מוזיקלית, עם זיהוי תווים, רמות קושי משתנות ומשוב מיידי על הביצועים.",
         highlights: [
-          "קונספט לתרגול שמיעה מוזיקלית אינטראקטיבית",
-          "ממשק ממוקד אודיו ומשוב למשתמש",
-          "עיצוב רספונסיבי ובדיקת תהליכי משתמש",
+          "תרגול אינטראקטיבי של זיהוי תווים בשלוש רמות קושי",
+          "השמעה חוזרת, תו ייחוס ומדדי ניקוד ורצף",
+          "ממשק רספונסיבי בעברית ובאנגלית",
         ],
-        artLabel: "אודיו אינטראקטיבי",
+        artLabel: "מאמן שמיעה פעיל",
       },
     },
   },

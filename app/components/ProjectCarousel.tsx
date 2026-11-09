@@ -38,19 +38,23 @@ const projects: ProjectConfig[] = [
     id: "precision",
     tags: ["JavaScript", "HTML", "CSS", "RTL / LTR"],
     accent: "mint",
+    github: "https://github.com/quality-krl/PrecisionPlaybook",
   },
   {
     id: "eargym",
     tags: ["JavaScript", "Responsive UI", "Interaction", "QA"],
     accent: "gold",
+    github: "https://github.com/quality-krl/EarGym-TestLab",
   },
 ];
 
-// Project routes. The remaining concepts retain their detail dialog.
+// Every featured project has its own case study page.
 const caseStudyRoutes: Partial<Record<ProjectId, string>> = {
   sylius: "/projects/sylius",
   freetv: "/projects/freetv",
   ksp: "/projects/ksp",
+  precision: "/projects/precision",
+  eargym: "/projects/eargym",
 };
 
 function ProjectArtwork({ id, label }: { id: ProjectId; label: string }) {
