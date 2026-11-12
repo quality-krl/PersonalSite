@@ -302,7 +302,10 @@ function ResultBar({ passed, failed, notExecuted, label }: {
 
 // Evidence extracted from the user's original 73-page KSP STD/STR report.
 // Pages are historical report excerpts, not claims about the current KSP site.
-const kspMediaUrl = (file: string) => `../../media/ksp/${file}`;
+
+const kspMediaUrl = (file: string) =>
+  `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/media/ksp/${file}`;
+
 
 const kspEvidence = {
   en: {
