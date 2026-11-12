@@ -42,10 +42,10 @@ const copy = {
     uiCount: "UI modules",
     apiCount: "API modules",
     pagesCount: "Page modules",
-    proofEyebrow: "EVIDENCE & NEXT STEPS",
-    proofTitle: "Source first. Evidence next.",
-    proofBody: "A real checkout test excerpt is now documented above. The repository contains the evolving implementation; verified execution reports and demonstrations remain future additions.",
-    upcoming: "Planned evidence",
+    proofEyebrow: "SOURCE-BASED EVIDENCE",
+    proofTitle: "Explore the evidence library.",
+    proofBody: "A curated gallery of source excerpts and a documented known-issue note. These are code artifacts—not screenshots of a successful run. Verified execution captures will be added after a reproducible run.",
+    upcoming: "Next evidence to capture",
     upcomingItems: ["Verified Pytest run", "Screenshots or video demonstration", "Confirmed defect reproduction details"],
     repo: "View source on GitHub",
     note: "Architecture inventory based on git ls-files. Checkout examples are excerpts from the supplied tests/test_api_checkout.py. No execution result or current defect status is claimed here.",
@@ -84,10 +84,10 @@ const copy = {
     uiCount: "קובצי UI",
     apiCount: "קובצי API",
     pagesCount: "קובצי עמודים",
-    proofEyebrow: "ראיות והמשך פיתוח",
-    proofTitle: "קודם הקוד. אחר כך הראיות.",
-    proofBody: "למעלה מוצגת כבר דוגמת קוד אמיתית מתוך בדיקות תהליך הרכישה. מאגר GitHub מכיל את הפרויקט המתפתח; נוסיף דוחות הרצה מאומתים והדגמות בהמשך.",
-    upcoming: "ראיות שנוסיף בהמשך",
+    proofEyebrow: "ראיות המבוססות על קוד המקור",
+    proofTitle: "גלריית הראיות של הפרויקט.",
+    proofBody: "גלריה מסודרת של מקטעי קוד ותיעוד של תקלה ידועה. אלו ראיות ממקור הקוד — לא צילומים מהרצה מוצלחת. נוסיף תוצאות הרצה רק אחרי ביצוע ואימות מחדש.",
+    upcoming: "ראיות שנאסוף בהמשך",
     upcomingItems: ["הרצת Pytest מאומתת", "צילומי מסך או סרטון הדגמה", "פרטי שחזור מאומתים של תקלה"],
     repo: "צפייה בקוד ב־GitHub",
     note: "מפת הקבצים מבוססת על git ls-files. דוגמאות Checkout נלקחו מתוך tests/test_api_checkout.py שסופק לשיחה. תוצאות הרצה ומצב התקלה כיום טרם אומתו.",
@@ -443,6 +443,215 @@ function CheckoutEvidence({ language }: { language: Language }) {
   );
 }
 
+
+// Evidence library: visual source excerpts only. No runtime result is implied.
+type GalleryKey = "state" | "validation" | "knownIssue" | "execution";
+
+const galleryKeys: readonly GalleryKey[] = ["state", "validation", "knownIssue", "execution"];
+const gallerySourceUrl = "https://github.com/quality-krl/sylius-automation/blob/main/tests/test_api_checkout.py";
+
+const galleryContent = {
+  en: {
+    selectionLabel: "SELECT AN ARTIFACT",
+    artifactLabel: "Source-backed artifact",
+    codeSource: "Open test source",
+    noReport: "Execution capture not supplied",
+    noReportBody: "A verified Pytest report or terminal screenshot has not been provided for this page. This panel is intentionally empty rather than displaying invented pass/fail numbers.",
+    noReportDetail: "Next: run against a stable environment, retain the command and dated terminal/HTML report, and verify failures before publishing.",
+    snippetLabel: "Source excerpt · Python",
+    infoLabel: "What this demonstrates",
+    caveatLabel: "Evidence boundary",
+    caveat: "Source assertions describe expected behavior. They are not proof of a current passing run. The 500 response is documented as a known issue in the test; it was not independently rechecked for this page.",
+    cards: {
+      state: {
+        category: "01 · STATE ASSERTIONS",
+        short: "Checkout states",
+        title: "Verify the checkout state, not only HTTP 200.",
+        summary: "The test checks shipping_selected and payment_selected after the corresponding PATCH requests.",
+        takeaway: "A successful HTTP status does not, by itself, prove that checkout progressed correctly.",
+        preview: "200  /  shipping_selected",
+        status: "SOURCE CODE",
+      },
+      validation: {
+        category: "02 · NEGATIVE VALIDATION",
+        short: "Invalid shipping",
+        title: "Reject an invalid shipping method predictably.",
+        summary: "A negative test sends an invalid shipping-method reference and expects HTTP 422.",
+        takeaway: "This guards the input-validation boundary without claiming the test currently passes.",
+        preview: "PATCH  →  EXPECT 422",
+        status: "SOURCE CODE",
+      },
+      knownIssue: {
+        category: "03 · KNOWN ISSUE",
+        short: "Wrong sequence",
+        title: "Payment before shipping: expected 422, documented 500.",
+        summary: "The payment-before-shipping scenario expects a controlled rejection. The test's xfail reason documents a reported 500 response.",
+        takeaway: "The note is a recorded test expectation and reported deviation—not a new live verification.",
+        preview: "EXPECTED 422  /  REPORTED 500",
+        status: "DOCUMENTED NOTE",
+      },
+      execution: {
+        category: "04 · CAPTURE PENDING",
+        short: "Execution report",
+        title: "An actual run report belongs here.",
+        summary: "This artifact will be filled only after a real Pytest execution has been captured and reviewed.",
+        takeaway: "No invented screenshots, percentages or green test results.",
+        preview: "NO RUN IMAGE YET",
+        status: "AWAITING EVIDENCE",
+      },
+    },
+  },
+  he: {
+    selectionLabel: "בחרו ראיה לצפייה",
+    artifactLabel: "ראיה המבוססת על קוד המקור",
+    codeSource: "פתיחת קובץ הבדיקה",
+    noReport: "עדיין לא צורף צילום הרצה מאומת",
+    noReportBody: "לעמוד לא סופקו דוח Pytest מאומת או צילום טרמינל מהרצה. האזור נשאר ריק בכוונה כדי לא להציג נתוני מעבר וכישלון שלא אומתו.",
+    noReportDetail: "השלב הבא: להריץ בסביבה יציבה, לשמור את הפקודה ואת דוח ההרצה המתוארך, ולאמת את הכישלונות לפני הפרסום.",
+    snippetLabel: "מקטע מקוד המקור · Python",
+    infoLabel: "מה הראיה מדגימה",
+    caveatLabel: "מגבלות הראיה",
+    caveat: "אימותים בקוד מתארים התנהגות צפויה, ולא מוכיחים שהבדיקות עוברות כרגע. תגובת 500 מתועדת כהערת תקלה בבדיקה, אך לא אומתה מחדש לצורך העמוד.",
+    cards: {
+      state: {
+        category: "01 · אימות מצב",
+        short: "מצבי Checkout",
+        title: "לא מסתפקים בקוד HTTP — בודקים גם מצב מערכת.",
+        summary: "הבדיקה מאמתת את המצבים shipping_selected ו־payment_selected לאחר בקשות PATCH מתאימות.",
+        takeaway: "תגובת HTTP מוצלחת לבדה אינה מוכיחה שתהליך התשלום התקדם למצב הנכון.",
+        preview: "200  /  shipping_selected",
+        status: "קוד מקור",
+      },
+      validation: {
+        category: "02 · בדיקה שלילית",
+        short: "משלוח שגוי",
+        title: "דחייה מבוקרת של שיטת משלוח לא תקינה.",
+        summary: "בדיקה שלילית שולחת הפניה לשיטת משלוח לא קיימת ומצפה לתגובת HTTP 422.",
+        takeaway: "התרחיש בודק את גבול אימות הקלט, בלי לטעון שהבדיקה עוברת כעת.",
+        preview: "PATCH  →  EXPECT 422",
+        status: "קוד מקור",
+      },
+      knownIssue: {
+        category: "03 · תקלה מתועדת",
+        short: "סדר פעולות",
+        title: "תשלום לפני משלוח: ציפייה ל־422 ודיווח על 500.",
+        summary: "הבדיקה מצפה לדחייה מבוקרת של פעולה שלא לפי סדר המצבים. בנימוק ה־xfail מתועדת תגובת 500 שדווחה בעבר.",
+        takeaway: "מדובר בציפייה מתועדת ובחריגה מדווחת, ולא באימות חדש מול השירות.",
+        preview: "EXPECTED 422  /  REPORTED 500",
+        status: "הערה מתועדת",
+      },
+      execution: {
+        category: "04 · ממתין לראיה",
+        short: "דוח הרצה",
+        title: "כאן יוצג דוח הרצה אמיתי.",
+        summary: "נמלא את האזור רק לאחר שנריץ את הבדיקות מחדש ונבדוק את התוצאות בפועל.",
+        takeaway: "לא מציגים צילומי מסך מומצאים או תוצאות מעבר שלא אומתו.",
+        preview: "NO RUN IMAGE YET",
+        status: "ממתין לאימות",
+      },
+    },
+  },
+} as const;
+
+function EvidenceGallery({ language }: { language: Language }) {
+  const [active, setActive] = useState<GalleryKey>("state");
+  const t = galleryContent[language];
+  const item = t.cards[active];
+  const code =
+    active === "state" ? checkoutCode.happy :
+    active === "validation" ? checkoutCode.shipping :
+    active === "knownIssue" ? checkoutCode.sequence : null;
+
+  return (
+    <div className="mt-7">
+      <p className="mb-3 text-xs font-bold tracking-wider text-[#0B7770]">{t.selectionLabel}</p>
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        {galleryKeys.map((key) => {
+          const card = t.cards[key];
+          const chosen = active === key;
+          return (
+            <button
+              key={key}
+              type="button"
+              aria-pressed={chosen}
+              onClick={() => setActive(key)}
+              className={`group min-w-0 rounded-2xl border p-3 text-start transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0B7770] ${
+                chosen
+                  ? "border-[#0B7770] bg-[#E8F4EE] shadow-[0_7px_24px_rgba(19,89,81,.10)]"
+                  : "border-[#D3E4DC] bg-white/80 hover:border-[#84B4A5] hover:bg-[#F6FBF8]"
+              }`}
+            >
+              <div className={`mb-3 flex h-20 flex-col justify-between overflow-hidden rounded-xl px-3 py-2.5 ${
+                key === "execution" ? "border border-dashed border-[#C8D6D0] bg-[#F4F6F3]" : "bg-[#172F35]"
+              }`} dir="ltr">
+                <div className="flex gap-1.5" aria-hidden="true">
+                  <span className={`h-1.5 w-1.5 rounded-full ${key === "execution" ? "bg-[#B7C5BE]" : "bg-[#C88785]"}`} />
+                  <span className={`h-1.5 w-1.5 rounded-full ${key === "execution" ? "bg-[#B7C5BE]" : "bg-[#D8B67A]"}`} />
+                  <span className={`h-1.5 w-1.5 rounded-full ${key === "execution" ? "bg-[#B7C5BE]" : "bg-[#65B7A5]"}`} />
+                </div>
+                <span className={`break-words font-mono text-[10px] leading-4 ${
+                  key === "execution" ? "text-[#72847D]" : "text-[#A7DBCA]"
+                }`}>{card.preview}</span>
+              </div>
+              <p className="text-[10px] font-bold tracking-wide text-[#0B7770]">{card.category}</p>
+              <span className="mt-1 block text-sm font-bold text-[#1C3E42]">{card.short}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      <article className="mt-4 overflow-hidden rounded-[24px] border border-[#C9DED4] bg-white shadow-[0_18px_50px_rgba(23,77,65,.08)]" aria-live="polite">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
+          <div className="p-5 sm:p-8">
+            <p className="text-[11px] font-extrabold tracking-wide text-[#0B7770]">{item.category}</p>
+            <h3 className="mt-3 text-xl font-bold leading-snug text-[#19343D] sm:text-2xl">{item.title}</h3>
+            <p className="mt-4 text-sm leading-7 text-[#526E70]">{item.summary}</p>
+            <div className="mt-5 rounded-xl border border-[#D3E7D9] bg-[#F0F8F2] px-4 py-3">
+              <p className="text-xs font-bold text-[#0B7770]">{t.infoLabel}</p>
+              <p className="mt-1 text-sm leading-6 text-[#365B59]">{item.takeaway}</p>
+            </div>
+            {active !== "execution" && (
+              <a href={gallerySourceUrl} target="_blank" rel="noopener noreferrer"
+                className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-[#0B7770] underline underline-offset-4 hover:text-[#19343D]">
+                {t.codeSource} <span aria-hidden="true">↗</span>
+              </a>
+            )}
+          </div>
+
+          {code !== null ? (
+            <div dir="ltr" className="min-w-0 bg-[#142D33] p-4 text-left sm:p-6">
+              <div className="mb-4 flex items-center justify-between gap-3 border-b border-white/15 pb-3">
+                <div className="flex gap-1.5" aria-hidden="true">
+                  <span className="h-2 w-2 rounded-full bg-[#C88785]" />
+                  <span className="h-2 w-2 rounded-full bg-[#D8B67A]" />
+                  <span className="h-2 w-2 rounded-full bg-[#65B7A5]" />
+                </div>
+                <span className="break-all text-right font-mono text-[10px] text-[#A7BDB9]">tests/test_api_checkout.py</span>
+              </div>
+              <p className="mb-2 text-[10px] font-semibold text-[#95D7C2]">{t.snippetLabel}</p>
+              <pre className="max-h-[340px] w-full overflow-auto rounded-xl bg-[#0C2228] p-4 text-xs leading-6 text-[#D7F0E7]">
+                <code>{code}</code>
+              </pre>
+              <p className="mt-3 text-[10px] font-semibold tracking-wide text-[#B2D8C8]">{item.status}</p>
+            </div>
+          ) : (
+            <div className="flex min-h-[260px] flex-col items-center justify-center border-t border-dashed border-[#CDDCD2] bg-[#F5F8F4] p-7 text-center lg:border-s" role="status">
+              <svg viewBox="0 0 64 64" aria-hidden="true" className="h-12 w-12 text-[#8FAA9C]" fill="none">
+                <rect x="11" y="8" width="42" height="48" rx="7" stroke="currentColor" strokeWidth="2.4" strokeDasharray="5 5" />
+                <path d="M22 28h20M22 36h14" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
+              </svg>
+              <h4 className="mt-4 text-base font-bold text-[#425D57]">{t.noReport}</h4>
+              <p className="mt-2 max-w-sm text-xs leading-6 text-[#647F76]">{t.noReportBody}</p>
+              <p className="mt-4 max-w-sm text-xs leading-6 text-[#647F76]">{t.noReportDetail}</p>
+            </div>
+          )}
+        </div>
+      </article>
+      <p className="mt-4 text-xs leading-6 text-[#7A8B84]"><strong>{t.caveatLabel}:</strong> {t.caveat}</p>
+    </div>
+  );
+}
+
 export default function SyliusCaseStudy() {
   const { language } = useLanguage();
   const t = copy[language];
@@ -551,7 +760,10 @@ export default function SyliusCaseStudy() {
           <p className="section-index">{t.proofEyebrow}</p>
           <h2 id="sylius-evidence" className="mt-3 text-2xl font-bold text-[#19343D] md:text-3xl">{t.proofTitle}</h2>
           <p className="mt-4 max-w-3xl text-base leading-8 text-[#637879]">{t.proofBody}</p>
-          <p className="mt-7 mb-3 text-xs font-bold tracking-wide text-[#0B7770]">{t.upcoming}</p>
+
+          <EvidenceGallery language={language} />
+
+          <p className="mt-8 mb-3 text-xs font-bold tracking-wide text-[#0B7770]">{t.upcoming}</p>
           <ul className="grid gap-3 sm:grid-cols-3">
             {t.upcomingItems.map((item) => (
               <li key={item} className="rounded-xl border border-[#D9E9E1] bg-white/75 p-4 text-sm leading-6 text-[#526B6C]">
