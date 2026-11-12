@@ -60,6 +60,10 @@ export default function SiteHeader() {
               {t.navigation.about}
             </Link>
 
+<Link href="/resume">
+  {language === "he" ? "קורות חיים" : "Resume"}
+</Link>
+
             <Link
               className="nav-contact"
               href="/contact"

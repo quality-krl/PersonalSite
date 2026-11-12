@@ -1,5 +1,7 @@
 "use client";
 
+
+import Link from "next/link";
 import { useLanguage } from "./LanguageProvider";
 import { translations } from "../i18n/translations";
 import ExternalServiceLink from "./ExternalServiceLink";
@@ -35,7 +37,18 @@ export default function SiteFooter() {
         >
           <ShieldIcon size={23} />
         </span>
-        <span>© {displayName}</span>
+
+<span>© {displayName}</span>
+
+<span aria-hidden="true">·</span>
+
+<Link
+  href="/resume"
+  className="font-semibold text-[#0B7770] underline underline-offset-2 hover:text-[#075b55]"
+>
+  {isHebrew ? "קורות חיים" : "Resume"}
+</Link>
+
       </span>
 
       {/* Bilingual motto */}

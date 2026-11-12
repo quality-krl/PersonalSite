@@ -44,7 +44,7 @@ export default function ContactPage() {
       service: "github",
       label: t.githubLabel,
       title: t.githubTitle,
-      detail: ".github.com/quality-krl",
+      detail: "github.com/quality-krl",
       action: t.githubAction,
     },
   ];
@@ -125,11 +125,19 @@ export default function ContactPage() {
           ))}
         </div>
 
-        <p className="mx-auto mt-8 max-w-2xl text-center text-sm leading-relaxed text-[#637879]">
-          {t.resumeNote}
-        </p>
-
         <div className="page-bottom-actions mt-9">
+          <Link
+            href="/resume"
+            className="action-btn action-btn--outline"
+          >
+            <span>
+              {language === "he"
+                ? "צפייה בקורות חיים"
+                : "View My Resume"}
+            </span>
+            <span aria-hidden="true">↗</span>
+          </Link>
+
           <Link
             href="/"
             className="action-btn action-btn--primary"
