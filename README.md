@@ -156,9 +156,7 @@ The website is a supporting portfolio project. Its main purpose is to present my
 
 My resume is available in both English and Hebrew.
 
-**[English Resume](https://quality-krl.github.io/Kirill_Kovalevski_QA_CV/?lang=en)**
-
-**[קורות חיים בעברית](https://quality-krl.github.io/Kirill_Kovalevski_QA_CV/?lang=he)**
+**[English Resume](https://quality-krl.github.io/Kirill_Kovalevski_QA_CV/?lang=en)** | **[קורות חיים בעברית](https://quality-krl.github.io/Kirill_Kovalevski_QA_CV/?lang=he)**
 
 Both versions support PDF preview and download.
 
