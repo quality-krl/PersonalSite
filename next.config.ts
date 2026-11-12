@@ -10,6 +10,10 @@ const nextConfig: NextConfig = {
 
   trailingSlash: true,
 
+env: {
+  NEXT_PUBLIC_BASE_PATH: isGitHubPages ? "/PersonalSite" : "",
+},
+
   images: {
     unoptimized: true,
   },

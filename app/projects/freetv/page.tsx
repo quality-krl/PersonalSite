@@ -270,7 +270,9 @@ function PercentageBar({
 
 // User-supplied portfolio evidence, edited for public display. Paths are relative to
 // /projects/freetv/ so they work locally and under GitHub Pages /PersonalSite/ basePath.
-const mediaUrl = (file: string) => `../../media/freetv/${file}`;
+
+const mediaUrl = (file: string) =>
+  `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/media/freetv/${file}`;
 
 const evidenceCopy = {
   en: {
@@ -393,7 +395,14 @@ function EvidenceGallery({ language }: { language: "en" | "he" }) {
             >
               {/* Public screenshots are provided as media assets; no Next Image optimization required. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={mediaUrl(file)} alt={t.images[i].title} loading="lazy" className="h-48 w-full object-contain transition-transform duration-300 group-hover:scale-[1.025] sm:h-52" />
+
+<img
+  src={mediaUrl(file)}
+  alt={t.images[i].title}
+  loading="eager"
+  className="h-48 w-full object-contain transition-transform duration-300 group-hover:scale-[1.025] sm:h-52"
+/>
+
             </button>
             <span className="mt-4 inline-block text-[10px] font-bold tracking-wider text-[#0B7770]">{t.screenLabel} · 0{i + 1}</span>
             <h4 className="mt-1 font-bold text-[#19343D]">{t.images[i].title}</h4>

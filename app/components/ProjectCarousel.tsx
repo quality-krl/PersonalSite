@@ -24,16 +24,22 @@ const projects: ProjectConfig[] = [
     accent: "violet",
     github: "https://github.com/quality-krl/sylius-automation",
   },
-  {
-    id: "freetv",
-    tags: ["iOS", "Postman", "TestRail", "Jira"],
-    accent: "coral",
-  },
-  {
-    id: "ksp",
-    tags: ["Test Design", "DevTools", "Jira", "Web QA"],
-    accent: "blue",
-  },
+
+{
+  id: "freetv",
+  tags: ["iOS", "Postman", "TestRail", "Jira"],
+  accent: "coral",
+  github: "https://github.com/quality-krl/FreeTV_iOS_E2E_QA_Project_STR_STD_STP_SRS",
+},
+
+
+{
+  id: "ksp",
+  tags: ["Test Design", "DevTools", "Jira", "Web QA"],
+  accent: "blue",
+  github: "https://github.com/quality-krl/KSP-STD-STR",
+},
+
   {
     id: "precision",
     tags: ["JavaScript", "HTML", "CSS", "RTL / LTR"],
@@ -65,7 +71,9 @@ function ProjectArtwork({ id, label }: { id: ProjectId; label: string }) {
       <div className={`project-art project-art--${id}`} role="img" aria-label={label}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={`./media/${id}/carousel-cover.webp`}
+
+src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/media/${id}/carousel-cover.webp`}
+
           alt=""
           loading="eager"
           draggable={false}
@@ -382,7 +390,14 @@ export default function ProjectCarousel() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {labels.sourceCode} <span aria-hidden="true">↗</span>
+
+{active.id === "freetv" || active.id === "ksp"
+  ? isHebrew
+    ? "מאגר הפרויקט"
+    : "Project Repository"
+  : labels.sourceCode}
+<span aria-hidden="true">↗</span>
+
                   </a>
                 )}
                 {active.demoVideo && (
