@@ -13,11 +13,11 @@ const copy = {
   en: {
     back: "Back to projects",
     label: "PROJECT 01 / QA AUTOMATION",
-    status: "Work in progress",
-    intro: "A practical automation project for an e-commerce platform, organized around UI journeys, API scenarios and reusable test infrastructure.",
+    status: "Regression verified",
+    intro: "A portfolio-ready automation suite for a real e-commerce platform, covering UI journeys, API scenarios, end-to-end checkout and reusable test infrastructure.",
     architectureEyebrow: "INSIDE THE PROJECT",
     architectureTitle: "The architecture behind the checks.",
-    architectureIntro: "The diagram below maps the actual tracked files into two testing areas and a shared support layer. It describes the repository structure, not a claim about completed test results.",
+    architectureIntro: "The diagram maps the tracked automation files into UI and API testing layers with shared support infrastructure. Execution results are presented separately and are backed by the captured regression run.",
     ui: "UI test layer",
     uiBody: "Scenarios for user-facing flows, separated from page-specific interactions.",
     uiScenarios: "UI test modules",
@@ -37,29 +37,29 @@ const copy = {
     tooling: "Project tooling",
     toolingBody: "Pytest options and dependency declaration.",
     coverageEyebrow: "TEST ORGANIZATION",
-    coverageTitle: "Six dedicated test modules.",
-    coverageIntro: "A file inventory is not a count of test cases or passing tests. Verified execution results will be added separately.",
+    coverageTitle: "Seven dedicated test modules.",
+    coverageIntro: "The repository contains four UI test modules and three API test modules. The verified regression executed 65 scenarios in total: 38 UI scenarios and 27 API scenarios, with 64 passed and 1 expected xfail.",
     uiCount: "UI modules",
     apiCount: "API modules",
     pagesCount: "Page modules",
-    proofEyebrow: "SOURCE-BASED EVIDENCE",
+    proofEyebrow: "EXECUTION & SOURCE EVIDENCE",
     proofTitle: "Explore the evidence library.",
-    proofBody: "A curated gallery of source excerpts and a documented known-issue note. These are code artifacts—not screenshots of a successful run. Verified execution captures will be added after a reproducible run.",
-    upcoming: "Next evidence to capture",
-    upcomingItems: ["Verified Pytest run", "Screenshots or video demonstration", "Confirmed defect reproduction details"],
+    proofBody: "A curated evidence library combining source excerpts with verified execution results. The regression was captured through Pytest terminal output, Allure reporting and a UI automation showcase video.",
+    upcoming: "Published evidence",
+    upcomingItems: ["Verified Pytest regression", "UI automation showcase video", "Allure report and reproduced known defect"],
     repo: "View source on GitHub",
-    note: "Architecture inventory based on git ls-files. Checkout examples are excerpts from the supplied tests/test_api_checkout.py. No execution result or current defect status is claimed here.",
+    note: "Architecture inventory is based on the tracked repository files. Checkout examples are source excerpts from tests/test_api_checkout.py. Execution figures come from the captured regression: 65 total, 64 passed and 1 expected xfail; the checkout sequencing defect reproduced HTTP 500 instead of the expected HTTP 422.",
     viewProjects: "Explore other projects",
     footer: "Designing tests around meaningful risk, not just test volume.",
   },
   he: {
     back: "חזרה לפרויקטים",
     label: "פרויקט 01 / אוטומציה",
-    status: "הפרויקט בתהליך פיתוח",
-    intro: "פרויקט אוטומציה מעשי למערכת מסחר אלקטרוני, עם הפרדה בין תהליכי UI, תרחישי API ותשתיות בדיקה משותפות.",
+    status: "הרצת Regression אומתה",
+    intro: "פרויקט אוטומציה ברמת פורטפוליו למערכת מסחר אלקטרוני אמיתית, הכולל תהליכי UI, תרחישי API, Checkout מקצה לקצה ותשתיות בדיקה לשימוש חוזר.",
     architectureEyebrow: "מאחורי הפרויקט",
     architectureTitle: "הארכיטקטורה שמאחורי הבדיקות.",
-    architectureIntro: "התרשים מציג את הקבצים שנמצאים במאגר, בחלוקה לשני תחומי בדיקה ולשכבת תשתית משותפת. הוא מתאר את מבנה הפרויקט ולא טוען שכל הבדיקות עברו בהצלחה.",
+    architectureIntro: "התרשים מציג את קובצי האוטומציה במאגר בחלוקה לשכבות UI ו־API ולתשתית משותפת. תוצאות ההרצה מוצגות בנפרד ומבוססות על הרצת ה־Regression שתועדה.",
     ui: "שכבת בדיקות הממשק",
     uiBody: "תרחישים לתהליכי משתמש, תוך הפרדה בין הבדיקות לבין הפעולות בעמודים.",
     uiScenarios: "קובצי בדיקות UI",
@@ -79,18 +79,18 @@ const copy = {
     tooling: "כלי הפרויקט",
     toolingBody: "הגדרות Pytest ורשימת תלויות הפרויקט.",
     coverageEyebrow: "ארגון הבדיקות",
-    coverageTitle: "שישה קובצי בדיקות ייעודיים.",
-    coverageIntro: "מספר הקבצים אינו מספר מקרי הבדיקה או כמות הבדיקות שעברו. נוסיף תוצאות הרצה רק אחרי שנאמת אותן.",
+    coverageTitle: "שבעה קובצי בדיקות ייעודיים.",
+    coverageIntro: "המאגר כולל ארבעה מודולי בדיקות UI ושלושה מודולי API. בהרצת ה־Regression המאומתת בוצעו 65 תרחישים: 38 תרחישי UI ו־27 תרחישי API, עם 64 שעברו ו־xfail צפוי אחד.",
     uiCount: "קובצי UI",
     apiCount: "קובצי API",
     pagesCount: "קובצי עמודים",
-    proofEyebrow: "ראיות המבוססות על קוד המקור",
+    proofEyebrow: "ראיות הרצה וקוד מקור",
     proofTitle: "גלריית הראיות של הפרויקט.",
-    proofBody: "גלריה מסודרת של מקטעי קוד ותיעוד של תקלה ידועה. אלו ראיות ממקור הקוד — לא צילומים מהרצה מוצלחת. נוסיף תוצאות הרצה רק אחרי ביצוע ואימות מחדש.",
-    upcoming: "ראיות שנאסוף בהמשך",
-    upcomingItems: ["הרצת Pytest מאומתת", "צילומי מסך או סרטון הדגמה", "פרטי שחזור מאומתים של תקלה"],
+    proofBody: "גלריית ראיות המשלבת מקטעי קוד עם תוצאות הרצה מאומתות. ה־Regression תועד באמצעות פלט Pytest, דוח Allure וסרטון Showcase של אוטומציית ה־UI.",
+    upcoming: "ראיות שפורסמו",
+    upcomingItems: ["הרצת Pytest מאומתת", "סרטון Showcase של אוטומציית UI", "דוח Allure ושחזור התקלה הידועה"],
     repo: "צפייה בקוד ב־GitHub",
-    note: "מפת הקבצים מבוססת על git ls-files. דוגמאות Checkout נלקחו מתוך tests/test_api_checkout.py שסופק לשיחה. תוצאות הרצה ומצב התקלה כיום טרם אומתו.",
+    note: "מפת הקבצים מבוססת על קובצי המאגר. דוגמאות ה־Checkout הן מקטעי מקור מתוך tests/test_api_checkout.py. נתוני ההרצה מבוססים על ה־Regression שתועד: 65 תרחישים, 64 עברו ו־xfail צפוי אחד; בתקלה הידועה שוחזרה תגובת HTTP 500 במקום HTTP 422 הצפוי.",
     viewProjects: "לפרויקטים נוספים",
     footer: "בדיקות שממוקדות בסיכון משמעותי, ולא רק בכמות.",
   },
@@ -100,6 +100,7 @@ const uiTestFiles = [
   "tests/test_login.py",
   "tests/test_registration.py",
   "tests/test_cart.py",
+  "tests/test_checkout.py",
 ];
 
 const pageFiles = [
@@ -110,6 +111,7 @@ const pageFiles = [
   "pages/account_page.py",
   "pages/product_page.py",
   "pages/cart_page.py",
+  "pages/checkout_page.py",
 ];
 
 const apiTestFiles = [
@@ -251,7 +253,7 @@ const checkoutCopy = {
   en: {
     eyebrow: "INSIDE THE TEST / API CHECKOUT",
     title: "From a request to a verified state.",
-    intro: "Four test functions from tests/test_api_checkout.py: one expected checkout progression and three negative or ordering scenarios. The assertions below show intended behavior—not fresh execution results.",
+    intro: "Four test functions from tests/test_api_checkout.py: one expected checkout progression and three negative or ordering scenarios. The excerpts show the assertions in source; the verified regression results are presented in the evidence section below.",
     flowTitle: "Expected checkout progression",
     flow: [
       { title: "Add item", detail: "POST · 201" },
@@ -266,7 +268,7 @@ const checkoutCopy = {
     expected: "What the assertion checks",
     risk: "Why this matters",
     notesTitle: "Known defect documented in the test",
-    notes: "The payment-before-shipping test expects HTTP 422 but is marked @pytest.mark.xfail(strict=False). Its reason records a reported HTTP 500 response instead of a controlled 4xx. This is a documented expectation and defect note, not a verified current run. With strict=False, an unexpected pass (XPASS) does not fail the suite.",
+    notes: "The payment-before-shipping test expects HTTP 422 and is marked @pytest.mark.xfail(strict=False). In the verified regression, the scenario reproduced HTTP 500 instead of a controlled 4xx response, so it remained the single expected xfail. With strict=False, an unexpected pass (XPASS) would not fail the suite.",
     scenarios: {
       happy: {
         short: "Valid checkout",
@@ -301,7 +303,7 @@ const checkoutCopy = {
   he: {
     eyebrow: "מבט לתוך הבדיקה / API CHECKOUT",
     title: "מקריאת API לאימות מצב המערכת.",
-    intro: "ארבע פונקציות בדיקה מתוך tests/test_api_checkout.py: מסלול תקין ושלושה תרחישים שליליים או בדיקות סדר פעולות. האימותים מייצגים ציפיות בקוד, לא תוצאות הרצה חדשות.",
+    intro: "ארבע פונקציות בדיקה מתוך tests/test_api_checkout.py: מסלול תקין ושלושה תרחישים שליליים או בדיקות סדר פעולות. המקטעים מציגים את האימותים בקוד, ותוצאות ה־Regression המאומתות מוצגות בהמשך באזור הראיות.",
     flowTitle: "רצף המצבים הצפוי",
     flow: [
       { title: "הוספת פריט", detail: "POST · 201" },
@@ -316,7 +318,7 @@ const checkoutCopy = {
     expected: "מה בודק האימות",
     risk: "למה הבדיקה חשובה",
     notesTitle: "תקלה ידועה שמתועדת בקוד",
-    notes: "בדיקת תשלום לפני משלוח מצפה ל־HTTP 422, אך מסומנת ב־@pytest.mark.xfail(strict=False). בנימוק הסימון מתועדת תגובת HTTP 500 במקום שגיאת 4xx מבוקרת. זה תיעוד של ציפייה ותקלה, לא אימות מחדש בהרצה הנוכחית. עם strict=False, גם XPASS לא מכשיל את חבילת הבדיקות.",
+    notes: "בדיקת תשלום לפני משלוח מצפה ל־HTTP 422 ומסומנת ב־@pytest.mark.xfail(strict=False). בהרצת ה־Regression המאומתת התרחיש שיחזר HTTP 500 במקום שגיאת 4xx מבוקרת, ולכן נשאר ה־xfail הצפוי היחיד. עם strict=False, גם XPASS לא היה מכשיל את החבילה.",
     scenarios: {
       happy: {
         short: "תהליך תקין",
@@ -444,7 +446,7 @@ function CheckoutEvidence({ language }: { language: Language }) {
 }
 
 
-// Evidence library: visual source excerpts only. No runtime result is implied.
+// Evidence library: source excerpts plus verified runtime evidence.
 type GalleryKey = "state" | "validation" | "knownIssue" | "execution";
 
 const galleryKeys: readonly GalleryKey[] = ["state", "validation", "knownIssue", "execution"];
@@ -453,15 +455,15 @@ const gallerySourceUrl = "https://github.com/quality-krl/sylius-automation/blob/
 const galleryContent = {
   en: {
     selectionLabel: "SELECT AN ARTIFACT",
-    artifactLabel: "Source-backed artifact",
+    artifactLabel: "Project evidence",
     codeSource: "Open test source",
-    noReport: "Execution capture not supplied",
-    noReportBody: "A verified Pytest report or terminal screenshot has not been provided for this page. This panel is intentionally empty rather than displaying invented pass/fail numbers.",
-    noReportDetail: "Next: run against a stable environment, retain the command and dated terminal/HTML report, and verify failures before publishing.",
+    noReport: "Verified regression execution",
+    noReportBody: "65 automated scenarios were executed across UI and API coverage: 64 passed and 1 completed as an expected xfail.",
+    noReportDetail: "The regression was captured with Pytest terminal output and Allure reporting. The expected xfail reproduces the known checkout sequencing defect: expected HTTP 422, actual HTTP 500.",
     snippetLabel: "Source excerpt · Python",
     infoLabel: "What this demonstrates",
     caveatLabel: "Evidence boundary",
-    caveat: "Source assertions describe expected behavior. They are not proof of a current passing run. The 500 response is documented as a known issue in the test; it was not independently rechecked for this page.",
+    caveat: "The published execution evidence reflects the captured regression run. The payment-before-shipping scenario remains intentionally marked xfail because Sylius returned HTTP 500 instead of the expected controlled HTTP 422 response.",
     cards: {
       state: {
         category: "01 · STATE ASSERTIONS",
@@ -477,41 +479,41 @@ const galleryContent = {
         short: "Invalid shipping",
         title: "Reject an invalid shipping method predictably.",
         summary: "A negative test sends an invalid shipping-method reference and expects HTTP 422.",
-        takeaway: "This guards the input-validation boundary without claiming the test currently passes.",
+        takeaway: "This guards the input-validation boundary; the scenario passed in the verified regression.",
         preview: "PATCH  →  EXPECT 422",
         status: "SOURCE CODE",
       },
       knownIssue: {
         category: "03 · KNOWN ISSUE",
         short: "Wrong sequence",
-        title: "Payment before shipping: expected 422, documented 500.",
-        summary: "The payment-before-shipping scenario expects a controlled rejection. The test's xfail reason documents a reported 500 response.",
-        takeaway: "The note is a recorded test expectation and reported deviation—not a new live verification.",
-        preview: "EXPECTED 422  /  REPORTED 500",
-        status: "DOCUMENTED NOTE",
+        title: "Payment before shipping: expected 422, reproduced 500.",
+        summary: "The payment-before-shipping scenario expects a controlled rejection. The verified regression reproduced HTTP 500 instead.",
+        takeaway: "The reproduced deviation is kept visible as an expected xfail instead of being hidden from the regression result.",
+        preview: "EXPECTED 422  /  ACTUAL 500",
+        status: "VERIFIED DEFECT",
       },
       execution: {
-        category: "04 · CAPTURE PENDING",
-        short: "Execution report",
-        title: "An actual run report belongs here.",
-        summary: "This artifact will be filled only after a real Pytest execution has been captured and reviewed.",
-        takeaway: "No invented screenshots, percentages or green test results.",
-        preview: "NO RUN IMAGE YET",
-        status: "AWAITING EVIDENCE",
+        category: "04 · VERIFIED EXECUTION",
+        short: "Regression report",
+        title: "64 passed · 1 expected xfail",
+        summary: "The complete automated regression contains 65 UI and API scenarios, captured through Pytest and Allure.",
+        takeaway: "The suite demonstrates both successful regression coverage and transparent handling of a reproducible known defect.",
+        preview: "65 TOTAL  /  64 PASSED  /  1 XFAIL",
+        status: "VERIFIED RUN",
       },
     },
   },
   he: {
     selectionLabel: "בחרו ראיה לצפייה",
-    artifactLabel: "ראיה המבוססת על קוד המקור",
+    artifactLabel: "ראיית פרויקט",
     codeSource: "פתיחת קובץ הבדיקה",
-    noReport: "עדיין לא צורף צילום הרצה מאומת",
-    noReportBody: "לעמוד לא סופקו דוח Pytest מאומת או צילום טרמינל מהרצה. האזור נשאר ריק בכוונה כדי לא להציג נתוני מעבר וכישלון שלא אומתו.",
-    noReportDetail: "השלב הבא: להריץ בסביבה יציבה, לשמור את הפקודה ואת דוח ההרצה המתוארך, ולאמת את הכישלונות לפני הפרסום.",
+    noReport: "הרצת Regression מאומתת",
+    noReportBody: "בוצעו 65 תרחישי אוטומציה בכיסוי UI ו-API: 64 עברו בהצלחה ותרחיש אחד הסתיים כ-xfail צפוי.",
+    noReportDetail: "ההרצה תועדה באמצעות פלט Pytest ודוח Allure. ה-xfail משחזר את התקלה הידועה בסדר פעולות ה-Checkout: ציפייה ל-HTTP 422 מול תגובת HTTP 500 בפועל.",
     snippetLabel: "מקטע מקוד המקור · Python",
     infoLabel: "מה הראיה מדגימה",
     caveatLabel: "מגבלות הראיה",
-    caveat: "אימותים בקוד מתארים התנהגות צפויה, ולא מוכיחים שהבדיקות עוברות כרגע. תגובת 500 מתועדת כהערת תקלה בבדיקה, אך לא אומתה מחדש לצורך העמוד.",
+    caveat: "ראיות ההרצה המוצגות מבוססות על הרצת ה-Regression שתועדה. תרחיש תשלום לפני בחירת משלוח נשאר מסומן בכוונה כ-xfail משום ש-Sylius החזיר HTTP 500 במקום דחייה מבוקרת מסוג HTTP 422.",
     cards: {
       state: {
         category: "01 · אימות מצב",
@@ -527,27 +529,27 @@ const galleryContent = {
         short: "משלוח שגוי",
         title: "דחייה מבוקרת של שיטת משלוח לא תקינה.",
         summary: "בדיקה שלילית שולחת הפניה לשיטת משלוח לא קיימת ומצפה לתגובת HTTP 422.",
-        takeaway: "התרחיש בודק את גבול אימות הקלט, בלי לטעון שהבדיקה עוברת כעת.",
+        takeaway: "התרחיש בודק את גבול אימות הקלט ועבר בהרצת ה־Regression המאומתת.",
         preview: "PATCH  →  EXPECT 422",
         status: "קוד מקור",
       },
       knownIssue: {
         category: "03 · תקלה מתועדת",
         short: "סדר פעולות",
-        title: "תשלום לפני משלוח: ציפייה ל־422 ודיווח על 500.",
-        summary: "הבדיקה מצפה לדחייה מבוקרת של פעולה שלא לפי סדר המצבים. בנימוק ה־xfail מתועדת תגובת 500 שדווחה בעבר.",
-        takeaway: "מדובר בציפייה מתועדת ובחריגה מדווחת, ולא באימות חדש מול השירות.",
-        preview: "EXPECTED 422  /  REPORTED 500",
-        status: "הערה מתועדת",
+        title: "תשלום לפני משלוח: ציפייה ל־422 ושחזור 500.",
+        summary: "הבדיקה מצפה לדחייה מבוקרת של פעולה שלא לפי סדר המצבים. בהרצת ה־Regression המאומתת שוחזרה תגובת HTTP 500.",
+        takeaway: "החריגה ששוחזרה נשארת גלויה כ־xfail צפוי במקום להסתיר אותה מתוצאת ה־Regression.",
+        preview: "EXPECTED 422  /  ACTUAL 500",
+        status: "תקלה מאומתת",
       },
       execution: {
-        category: "04 · ממתין לראיה",
-        short: "דוח הרצה",
-        title: "כאן יוצג דוח הרצה אמיתי.",
-        summary: "נמלא את האזור רק לאחר שנריץ את הבדיקות מחדש ונבדוק את התוצאות בפועל.",
-        takeaway: "לא מציגים צילומי מסך מומצאים או תוצאות מעבר שלא אומתו.",
-        preview: "NO RUN IMAGE YET",
-        status: "ממתין לאימות",
+        category: "04 · הרצה מאומתת",
+        short: "דוח Regression",
+        title: "64 עברו · 1 xfail צפוי",
+        summary: "הרצת האוטומציה המלאה כוללת 65 תרחישי UI ו-API שתועדו באמצעות Pytest ו-Allure.",
+        takeaway: "ההרצה מציגה גם כיסוי Regression מוצלח וגם טיפול שקוף בתקלה ידועה שניתנת לשחזור.",
+        preview: "65 TOTAL  /  64 PASSED  /  1 XFAIL",
+        status: "הרצה מאומתת",
       },
     },
   },
@@ -557,10 +559,27 @@ function EvidenceGallery({ language }: { language: Language }) {
   const [active, setActive] = useState<GalleryKey>("state");
   const t = galleryContent[language];
   const item = t.cards[active];
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
   const code =
     active === "state" ? checkoutCode.happy :
-    active === "validation" ? checkoutCode.shipping :
-    active === "knownIssue" ? checkoutCode.sequence : null;
+    active === "validation" ? checkoutCode.shipping : null;
+
+  const executionEvidence = [
+    {
+      src: `${basePath}/media/sylius/evidence/allure-api-full.png`,
+      label: language === "he" ? "דוח Allure של הרצת ה־API" : "Allure API regression report",
+    },
+    {
+      src: `${basePath}/media/sylius/evidence/api-terminal-showcase.png`,
+      label: language === "he" ? "פלט Pytest מהטרמינל" : "Pytest terminal execution",
+    },
+  ];
+
+  const defectEvidence = {
+    src: `${basePath}/media/sylius/evidence/allure-known-defect.png`,
+    label: language === "he" ? "תקלה ידועה מתועדת ב־Allure" : "Known defect captured in Allure",
+  };
 
   return (
     <div className="mt-7">
@@ -569,6 +588,8 @@ function EvidenceGallery({ language }: { language: Language }) {
         {galleryKeys.map((key) => {
           const card = t.cards[key];
           const chosen = active === key;
+          const hasRuntimeEvidence = key === "knownIssue" || key === "execution";
+
           return (
             <button
               key={key}
@@ -581,16 +602,21 @@ function EvidenceGallery({ language }: { language: Language }) {
                   : "border-[#D3E4DC] bg-white/80 hover:border-[#84B4A5] hover:bg-[#F6FBF8]"
               }`}
             >
-              <div className={`mb-3 flex h-20 flex-col justify-between overflow-hidden rounded-xl px-3 py-2.5 ${
-                key === "execution" ? "border border-dashed border-[#C8D6D0] bg-[#F4F6F3]" : "bg-[#172F35]"
-              }`} dir="ltr">
+              <div
+                className={`mb-3 flex h-20 flex-col justify-between overflow-hidden rounded-xl px-3 py-2.5 ${
+                  hasRuntimeEvidence
+                    ? "border border-[#BFDCCE] bg-[#EAF5EE]"
+                    : "bg-[#172F35]"
+                }`}
+                dir="ltr"
+              >
                 <div className="flex gap-1.5" aria-hidden="true">
-                  <span className={`h-1.5 w-1.5 rounded-full ${key === "execution" ? "bg-[#B7C5BE]" : "bg-[#C88785]"}`} />
-                  <span className={`h-1.5 w-1.5 rounded-full ${key === "execution" ? "bg-[#B7C5BE]" : "bg-[#D8B67A]"}`} />
-                  <span className={`h-1.5 w-1.5 rounded-full ${key === "execution" ? "bg-[#B7C5BE]" : "bg-[#65B7A5]"}`} />
+                  <span className={`h-1.5 w-1.5 rounded-full ${hasRuntimeEvidence ? "bg-[#0B7770]" : "bg-[#C88785]"}`} />
+                  <span className={`h-1.5 w-1.5 rounded-full ${hasRuntimeEvidence ? "bg-[#65B7A5]" : "bg-[#D8B67A]"}`} />
+                  <span className={`h-1.5 w-1.5 rounded-full ${hasRuntimeEvidence ? "bg-[#C4A57B]" : "bg-[#65B7A5]"}`} />
                 </div>
                 <span className={`break-words font-mono text-[10px] leading-4 ${
-                  key === "execution" ? "text-[#72847D]" : "text-[#A7DBCA]"
+                  hasRuntimeEvidence ? "text-[#17665F]" : "text-[#A7DBCA]"
                 }`}>{card.preview}</span>
               </div>
               <p className="text-[10px] font-bold tracking-wide text-[#0B7770]">{card.category}</p>
@@ -611,14 +637,70 @@ function EvidenceGallery({ language }: { language: Language }) {
               <p className="mt-1 text-sm leading-6 text-[#365B59]">{item.takeaway}</p>
             </div>
             {active !== "execution" && (
-              <a href={gallerySourceUrl} target="_blank" rel="noopener noreferrer"
-                className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-[#0B7770] underline underline-offset-4 hover:text-[#19343D]">
+              <a
+                href={gallerySourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-[#0B7770] underline underline-offset-4 hover:text-[#19343D]"
+              >
                 {t.codeSource} <span aria-hidden="true">↗</span>
               </a>
             )}
           </div>
 
-          {code !== null ? (
+          {active === "execution" ? (
+            <div dir="ltr" className="min-w-0 border-t border-[#26444A] bg-[#142D33] p-4 text-left sm:p-6 lg:border-s lg:border-t-0">
+              <div className="mb-4 flex items-center justify-between gap-3 border-b border-white/15 pb-3">
+                <div className="flex gap-1.5" aria-hidden="true">
+                  <span className="h-2 w-2 rounded-full bg-[#C88785]" />
+                  <span className="h-2 w-2 rounded-full bg-[#D8B67A]" />
+                  <span className="h-2 w-2 rounded-full bg-[#65B7A5]" />
+                </div>
+                <span className="font-mono text-[10px] font-semibold text-[#95D7C2]">VERIFIED EXECUTION EVIDENCE</span>
+              </div>
+
+              <div className="space-y-4">
+                {executionEvidence.map((evidence) => (
+                  <figure key={evidence.src} className="overflow-hidden rounded-xl border border-white/15 bg-[#0C2228] p-2">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={evidence.src}
+                      alt={evidence.label}
+                      loading="lazy"
+                      className="block h-auto w-full rounded-lg object-contain"
+                    />
+                    <figcaption className="px-1 pt-2 text-[10px] font-medium text-[#A8C2BE]">{evidence.label}</figcaption>
+                  </figure>
+                ))}
+              </div>
+
+              <p className="mt-4 text-[10px] font-semibold tracking-wide text-[#B2D8C8]">{item.status}</p>
+            </div>
+          ) : active === "knownIssue" ? (
+            <div dir="ltr" className="min-w-0 border-t border-[#5F4936] bg-[#2A231D] p-4 text-left sm:p-6 lg:border-s lg:border-t-0">
+              <div className="mb-4 flex items-center justify-between gap-3 border-b border-white/15 pb-3">
+                <div className="flex gap-1.5" aria-hidden="true">
+                  <span className="h-2 w-2 rounded-full bg-[#C88785]" />
+                  <span className="h-2 w-2 rounded-full bg-[#D8B67A]" />
+                  <span className="h-2 w-2 rounded-full bg-[#65B7A5]" />
+                </div>
+                <span className="font-mono text-[10px] font-semibold text-[#E5C99E]">EXPECTED 422 · ACTUAL 500</span>
+              </div>
+
+              <figure className="overflow-hidden rounded-xl border border-white/15 bg-[#16120F] p-2">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={defectEvidence.src}
+                  alt={defectEvidence.label}
+                  loading="lazy"
+                  className="block h-auto w-full rounded-lg object-contain"
+                />
+                <figcaption className="px-1 pt-2 text-[10px] font-medium text-[#D8C4A6]">{defectEvidence.label}</figcaption>
+              </figure>
+
+              <p className="mt-4 text-[10px] font-semibold tracking-wide text-[#E5C99E]">{item.status}</p>
+            </div>
+          ) : code !== null ? (
             <div dir="ltr" className="min-w-0 bg-[#142D33] p-4 text-left sm:p-6">
               <div className="mb-4 flex items-center justify-between gap-3 border-b border-white/15 pb-3">
                 <div className="flex gap-1.5" aria-hidden="true">
@@ -634,19 +716,10 @@ function EvidenceGallery({ language }: { language: Language }) {
               </pre>
               <p className="mt-3 text-[10px] font-semibold tracking-wide text-[#B2D8C8]">{item.status}</p>
             </div>
-          ) : (
-            <div className="flex min-h-[260px] flex-col items-center justify-center border-t border-dashed border-[#CDDCD2] bg-[#F5F8F4] p-7 text-center lg:border-s" role="status">
-              <svg viewBox="0 0 64 64" aria-hidden="true" className="h-12 w-12 text-[#8FAA9C]" fill="none">
-                <rect x="11" y="8" width="42" height="48" rx="7" stroke="currentColor" strokeWidth="2.4" strokeDasharray="5 5" />
-                <path d="M22 28h20M22 36h14" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
-              </svg>
-              <h4 className="mt-4 text-base font-bold text-[#425D57]">{t.noReport}</h4>
-              <p className="mt-2 max-w-sm text-xs leading-6 text-[#647F76]">{t.noReportBody}</p>
-              <p className="mt-4 max-w-sm text-xs leading-6 text-[#647F76]">{t.noReportDetail}</p>
-            </div>
-          )}
+          ) : null}
         </div>
       </article>
+
       <p className="mt-4 text-xs leading-6 text-[#7A8B84]"><strong>{t.caveatLabel}:</strong> {t.caveat}</p>
     </div>
   );
@@ -744,9 +817,9 @@ export default function SyliusCaseStudy() {
           <p className="mt-3 max-w-3xl text-sm leading-7 text-[#637879]">{t.coverageIntro}</p>
           <div className="mt-7 grid grid-cols-3 gap-3">
             {[
-              ["03", t.uiCount],
+              ["04", t.uiCount],
               ["03", t.apiCount],
-              ["07", t.pagesCount],
+              ["08", t.pagesCount],
             ].map(([number, label]) => (
               <div key={label} className="rounded-2xl border border-[#D0E6DC] bg-[#F3FAF5] p-4 text-center">
                 <strong className="block text-3xl font-bold text-[#0B7770] sm:text-4xl">{number}</strong>
