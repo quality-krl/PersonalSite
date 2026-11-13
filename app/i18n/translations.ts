@@ -104,11 +104,11 @@ export const translations = {
         eyebrow: "FEATURED PROJECT",
         category: "END-TO-END AUTOMATION",
         description:
-          "Building maintainable UI and API checks for a real e-commerce platform.",
+          "Built a maintainable UI and API automation suite for a real e-commerce platform, with verified regression evidence.",
         highlights: [
-          "Page Object Model and reusable fixtures",
-          "Critical shopping journeys and API coverage",
-          "Negative cases, test data and lifecycle checks",
+          "Page Object Model, reusable fixtures and Allure reporting",
+          "38 UI and 27 API scenarios across critical flows",
+          "64 passed with 1 expected xfail for a reproduced defect",
         ],
         artLabel: "UI + API COVERAGE",
       },
@@ -117,7 +117,7 @@ export const translations = {
         eyebrow: "MOBILE QUALITY ASSURANCE",
         category: "MOBILE · API · SECURITY",
         description:
-          "Exploring critical streaming flows through manual, API and security-focused testing.",
+          "Executed end-to-end QA of critical iOS streaming flows through manual, API and security-focused testing.",
         highlights: [
           "123 documented test cases",
           "Streaming, authentication and account scenarios",
@@ -272,11 +272,11 @@ export const translations = {
         eyebrow: "פרויקט אוטומציה מרכזי",
         category: "אוטומציה מקצה לקצה",
         description:
-          "פיתוח בדיקות אוטומטיות לממשק משתמש ול-API של פלטפורמת מסחר אלקטרוני אמיתית, תוך דגש על תחזוקתיות ואמינות.",
+          "מערך אוטומציה מלא לממשק משתמש ול-API של פלטפורמת מסחר אלקטרוני אמיתית, עם תוצאות Regression מאומתות.",
         highlights: [
-          "ארכיטקטורת Page Object Model ושימוש ב-Fixtures חוזרים",
-          "כיסוי תהליכי רכישה קריטיים ובדיקות API",
-          "תרחישים שליליים, נתוני בדיקה ואימות מחזורי חיים",
+          "ארכיטקטורת Page Object Model, שימוש חוזר ב-Fixtures ודוחות Allure",
+          "38 תרחישי UI ו-27 תרחישי API בתהליכים קריטיים",
+          "64 בדיקות עברו ותרחיש אחד סומן כ-xfail צפוי בעקבות תקלה ששוחזרה",
         ],
         artLabel: "בדיקות UI ו-API",
       },
@@ -285,7 +285,7 @@ export const translations = {
         eyebrow: "בדיקות אפליקציה לנייד",
         category: "מובייל · API · אבטחה",
         description:
-          "בדיקת תהליכים מרכזיים באפליקציית סטרימינג ל-iOS, בשילוב בדיקות ידניות, בדיקות API ובדיקות מוכוונות אבטחה.",
+          "ביצוע בדיקות מקצה לקצה לתהליכים קריטיים באפליקציית סטרימינג ל-iOS, בשילוב בדיקות ידניות, API ובדיקות מוכוונות אבטחה.",
         highlights: [
           "123 מקרי בדיקה מתועדים",
           "בדיקות סטרימינג, הזדהות וניהול חשבון",
