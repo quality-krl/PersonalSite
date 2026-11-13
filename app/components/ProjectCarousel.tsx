@@ -63,21 +63,57 @@ const caseStudyRoutes: Partial<Record<ProjectId, string>> = {
   eargym: "/projects/eargym",
 };
 
+// Use real project imagery already stored in public/media.
+// Sylius keeps its current cover while the project is in progress.
+const projectCoverFiles: Partial<Record<ProjectId, string>> = {
+  sylius: "carousel-cover.webp",
+  freetv: "report-cover.webp",
+  ksp: "report-cover.webp",
+  precision: "precision-live-cover.webp",
+  eargym: "eargym-intro.webp",
+};
+
+const projectCoverBackgrounds: Partial<Record<ProjectId, string>> = {
+  sylius: "#142e36",
+  freetv: "#14262f",
+  ksp: "#e9f0ed",
+  precision: "#e8e6f5",
+  eargym: "#18251d",
+};
+
 function ProjectArtwork({ id, label }: { id: ProjectId; label: string }) {
-  // QA_PROJECT_COVERS_V4: first impression = original dossier cover where available.
-  const coverProjects = ["freetv", "ksp", "sylius", "precision", "eargym"];
-  if (coverProjects.includes(id)) {
+  const coverFile = projectCoverFiles[id];
+
+  if (coverFile) {
+    const imageSrc = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/media/${id}/${coverFile}`;
+
     return (
-      <div className={`project-art project-art--${id}`} role="img" aria-label={label}>
+      <div
+        className={`project-art project-art--${id}`}
+        role="img"
+        aria-label={label}
+        style={{
+          border: "none",
+          background: projectCoverBackgrounds[id] ?? "#142e36",
+        }}
+      >
+        {/* Matching blurred backdrop: fills the card without grey/white gutters. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-
-src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/media/${id}/carousel-cover.webp`}
-
+          src={imageSrc}
+          alt=""
+          aria-hidden="true"
+          draggable={false}
+          className="pointer-events-none absolute inset-0 h-full w-full scale-125 object-cover opacity-70 blur-3xl"
+        />
+        {/* Real project image: never crop report pages or screenshots. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={imageSrc}
           alt=""
           loading="eager"
           draggable={false}
-          style={{ width: "100%", height: "100%", display: "block", objectFit: "cover" }}
+          className={`relative z-10 block h-full w-full ${id === "sylius" ? "object-cover" : "object-contain"}`}
         />
       </div>
     );
@@ -428,7 +464,7 @@ export default function ProjectCarousel() {
               <button
                 key={project.id}
                 type="button"
-                aria-label={`${labels.viewCaseStudy}: ${copy(project.id).title}`}
+                aria-label={`${isHebrew ? "הצגת פרויקט" : "Show project"}: ${copy(project.id).title}`}
                 aria-current={index === activeIndex ? "true" : undefined}
                 className={`carousel-dot ${index === activeIndex ? "is-selected" : ""}`}
                 onClick={() => setActiveIndex(index)}

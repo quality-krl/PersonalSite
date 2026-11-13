@@ -92,16 +92,17 @@ export default function Home() {
             </span>
           </a>
 
-          <Link
-            className="action-btn action-btn--outline"
-            href="/about"
-          >
-            <span>{t.about}</span>
-
-            <span aria-hidden="true">
-              {isHebrew ? "←" : "→"}
-            </span>
-          </Link>
+         <Link
+  className="action-btn action-btn--outline"
+  href="/resume"
+>
+  <span>
+    {isHebrew ? "קורות חיים" : "View Resume"}
+  </span>
+  <span aria-hidden="true">
+    {isHebrew ? "←" : "→"}
+  </span>
+</Link>
         </div>
 
         {/* Expertise */}

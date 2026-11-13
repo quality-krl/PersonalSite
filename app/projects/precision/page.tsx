@@ -113,17 +113,34 @@ export default function PrecisionPlaybookCaseStudy() {
           <span>{t.back}</span>
         </Link>
 
-        <header className="mb-10">
+        <header className="mb-8">
           <p className="page-kicker">{t.eyebrow}</p>
-          <h1 className="page-title break-words">{t.name} <span>{t.nameAccent}</span></h1>
-          <p className="page-lead">{t.lead}</p>
-          <div className="mt-6 flex flex-wrap items-center gap-3">
+
+          {/* RTL places the cover to the left of the heading; LTR places it to the right. */}
+          <div className="mt-3 grid grid-cols-[minmax(0,1fr)_104px] items-center gap-3 sm:grid-cols-[minmax(0,1fr)_180px] sm:gap-6 md:grid-cols-[minmax(0,1fr)_240px]">
+            <h1 className="min-w-0 text-[clamp(1.5rem,4.4vw,3.5rem)] font-extrabold leading-tight tracking-tight text-[#19343D] [overflow-wrap:anywhere]">
+              <span className="block" dir="ltr">{t.name}</span>
+              <span className="mt-1 block text-[#0B7770]">{t.nameAccent}</span>
+            </h1>
+
+            {/* Real screenshot from the live PrecisionPlaybook homepage. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/media/precision/precision-live-cover.webp`}
+              alt={isHebrew ? "צילום מסך אמיתי של עמוד הבית של PrecisionPlaybook" : "Actual screenshot of the PrecisionPlaybook homepage in Hebrew"}
+              className="block h-auto w-full rounded-xl border border-[#E4E0ED] shadow-[0_10px_25px_rgba(18,60,53,0.11)]"
+              loading="eager"
+            />
+          </div>
+
+          <p className="page-lead mt-5 max-w-3xl">{t.lead}</p>
+          <div className="mt-5 flex flex-wrap items-center gap-3">
             <span className="inline-flex items-center gap-2 rounded-full border border-[#BBDDD0] bg-[#E6F3EE] px-4 py-2 text-xs font-bold text-[#0B7770]">
               <span aria-hidden="true" className="h-2 w-2 rounded-full bg-[#0B7770]" />{t.type}
             </span>
             <span className="rounded-full border border-[#D6E3DC] bg-white/70 px-4 py-2 text-xs font-semibold text-[#385F60]" dir="ltr">HTML · CSS · JavaScript</span>
           </div>
-          <div className="mt-7 flex flex-wrap gap-3">
+          <div className="mt-6 flex flex-wrap gap-3">
             <a href={LIVE_URL} target="_blank" rel="noopener noreferrer" className="action-btn action-btn--primary inline-flex min-h-12 items-center justify-center gap-2 px-6">
               {t.launch}<span aria-hidden="true">↗</span>
             </a>
@@ -133,6 +150,52 @@ export default function PrecisionPlaybookCaseStudy() {
             </a>
           </div>
         </header>
+
+        <section
+          className="glass-surface mb-6 overflow-hidden rounded-3xl p-4 sm:p-6 md:p-8"
+          aria-labelledby="precision-demo-title"
+        >
+          <p className="section-index">
+            {isHebrew ? "הכלי בפעולה" : "REAL PRODUCT DEMO"}
+          </p>
+          <h2
+            id="precision-demo-title"
+            className="mt-3 text-xl font-extrabold text-[#19343D] md:text-2xl"
+          >
+            {isHebrew
+              ? "מתצפית לפרוטוקול QA מובנה"
+              : "From an observation to a structured QA protocol"}
+          </h2>
+          <p className="mt-2 max-w-3xl text-sm leading-7 text-[#637879]">
+            {isHebrew
+              ? "דוגמה מהממשק הפעיל: מזינים ממצא ופרטי סביבה ומקבלים פרוטוקול מסודר להעתקה."
+              : "A real example from the live tool: enter a finding and environment details to generate a copy-ready QA protocol."}
+          </p>
+          <a
+            href={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/media/precision/precision-generator-demo.png`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-5 block overflow-hidden rounded-2xl border border-[#D9E6E1] bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0B7770]"
+            aria-label={isHebrew ? "פתיחת צילום המסך בגודל מלא" : "Open full-size screenshot"}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/media/precision/precision-generator-demo.png`}
+              alt={
+                isHebrew
+                  ? "ממשק PrecisionPlaybook לצד פרוטוקול QA שנוצר מדיווח לדוגמה"
+                  : "PrecisionPlaybook interface alongside a QA protocol generated from a sample finding"
+              }
+              className="block h-auto w-full"
+              loading="eager"
+            />
+          </a>
+          <p className="mt-3 text-xs text-[#617879]">
+            {isHebrew
+              ? "לחיצה על התמונה תפתח אותה בגודל מלא."
+              : "Select the image to view it at full size."}
+          </p>
+        </section>
 
         <section className="glass-surface mb-6 rounded-3xl p-6 md:p-10">
           <p className="section-index">{t.introEyebrow}</p>
