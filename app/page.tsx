@@ -1,7 +1,5 @@
-
 "use client";
 
-import Link from "next/link";
 
 import ProjectCarousel from "./components/ProjectCarousel";
 import { useLanguage } from "./components/LanguageProvider";
@@ -81,28 +79,6 @@ export default function Home() {
 
         {/* Call-to-action buttons */}
         <div className="hero-actions">
-          <a
-            className="action-btn action-btn--primary"
-            href="#showcase"
-          >
-            <span>{t.explore}</span>
-
-            <span aria-hidden="true">
-              ↗
-            </span>
-          </a>
-
-         <Link
-  className="action-btn action-btn--outline"
-  href="/resume"
->
-  <span>
-    {isHebrew ? "קורות חיים" : "View Resume"}
-  </span>
-  <span aria-hidden="true">
-    {isHebrew ? "←" : "→"}
-  </span>
-</Link>
         </div>
 
         {/* Expertise */}
