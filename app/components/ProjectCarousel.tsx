@@ -19,11 +19,12 @@ type ProjectConfig = {
 // Only metadata lives here. All displayed copy comes from translations.ts.
 const projects: ProjectConfig[] = [
   {
-    id: "sylius",
-    tags: ["Playwright", "Python", "Pytest", "REST API"],
-    accent: "violet",
-    github: "https://github.com/quality-krl/sylius-automation",
-  },
+  id: "sylius",
+  tags: ["Playwright", "Python", "Pytest", "REST API"],
+  accent: "violet",
+  github: "https://github.com/quality-krl/sylius-automation",
+  demoVideo: `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/media/sylius/sylius-automation-showcase.mp4`,
+},
 
 {
   id: "freetv",
@@ -81,11 +82,50 @@ const projectCoverBackgrounds: Partial<Record<ProjectId, string>> = {
   eargym: "#18251d",
 };
 
-function ProjectArtwork({ id, label }: { id: ProjectId; label: string }) {
+function ProjectArtwork({
+  id,
+  label,
+  demoVideo,
+}: {
+  id: ProjectId;
+  label: string;
+  demoVideo?: string;
+}) {
   const coverFile = projectCoverFiles[id];
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+  if (demoVideo) {
+    return (
+      <div
+        className={`project-art project-art--${id}`}
+        role="img"
+        aria-label={label}
+        style={{
+          border: "none",
+          background: projectCoverBackgrounds[id] ?? "#142e36",
+        }}
+      >
+        <video
+          src={demoVideo}
+          poster={
+            coverFile
+              ? `${basePath}/media/${id}/${coverFile}`
+              : undefined
+          }
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-hidden="true"
+          className="relative z-10 block h-full w-full object-cover"
+        />
+      </div>
+    );
+  }
 
   if (coverFile) {
-    const imageSrc = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/media/${id}/${coverFile}`;
+    const imageSrc = `${basePath}/media/${id}/${coverFile}`;
 
     return (
       <div
@@ -106,6 +146,7 @@ function ProjectArtwork({ id, label }: { id: ProjectId; label: string }) {
           draggable={false}
           className="pointer-events-none absolute inset-0 h-full w-full scale-125 object-cover opacity-70 blur-3xl"
         />
+
         {/* Real project image: never crop report pages or screenshots. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -113,7 +154,9 @@ function ProjectArtwork({ id, label }: { id: ProjectId; label: string }) {
           alt=""
           loading="eager"
           draggable={false}
-          className={`relative z-10 block h-full w-full ${id === "sylius" ? "object-cover" : "object-contain"}`}
+          className={`relative z-10 block h-full w-full ${
+            id === "sylius" ? "object-cover" : "object-contain"
+          }`}
         />
       </div>
     );
@@ -392,7 +435,11 @@ export default function ProjectCarousel() {
               </span>
             </div>
 
-            <ProjectArtwork id={active.id} label={activeCopy.artLabel} />
+            <ProjectArtwork
+  id={active.id}
+  label={activeCopy.artLabel}
+  demoVideo={active.demoVideo}
+/>
 
             <div className="card-copy">
               <span className="card-category">{activeCopy.category}</span>
