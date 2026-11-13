@@ -41,7 +41,7 @@ export const translations = {
       title: "Curious by nature.",
       titleAccent: "Precise by design.",
       introduction:
-        "I'm Kirill — a QA practitioner building toward a career in automation engineering. I approach quality as a product responsibility, not just a checklist.",
+        "I'm Kirill — a QA Engineer focused on manual testing, API testing and automation with Python, Playwright and Pytest. I approach quality as a product responsibility, not just a checklist.",
       approachLabel: "MY APPROACH",
       approachTitle:
         "Test what matters. Question what is missing.",
@@ -89,7 +89,7 @@ export const translations = {
       githubTitle: "Explore the code",
       githubAction: "Open GitHub",
       resumeNote:
-        "Resume downloads in English and Hebrew will be added when the approved PDF files are ready.",
+        "Updated resumes are available in both English and Hebrew.",
       backToProjects: "Back to projects",
     },
 
@@ -209,7 +209,7 @@ export const translations = {
       title: "סקרן מטבעי.",
       titleAccent: "מדויק מתוך מחשבה.",
       introduction:
-        "אני קיריל, איש בדיקות תוכנה שמפתח את דרכו המקצועית בתחום האוטומציה. מבחינתי, איכות היא אחריות כלפי המוצר והמשתמשים, ולא רק רשימת בדיקות שצריך להשלים.",
+        "אני קיריל, בודק תוכנה המתמקד בבדיקות ידניות, בדיקות API ואוטומציה באמצעות Python, Playwright ו-Pytest. מבחינתי, איכות היא אחריות כלפי המוצר והמשתמשים, ולא רק רשימת בדיקות שצריך להשלים.",
       approachLabel: "הגישה שלי",
       approachTitle:
         "לבדוק את מה שחשוב. לשאול מה חסר.",
@@ -257,7 +257,7 @@ export const translations = {
       githubTitle: "מוזמנים להכיר את הקוד",
       githubAction: "לפרופיל GitHub",
       resumeNote:
-        "קורות חיים בעברית ובאנגלית יהיו זמינים להורדה לאחר שנוסיף את הקבצים המאושרים.",
+        "קורות החיים המעודכנים זמינים בעברית ובאנגלית.",
       backToProjects: "חזרה לפרויקטים",
     },
 
