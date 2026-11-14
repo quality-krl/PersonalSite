@@ -42,6 +42,14 @@ const copy = {
     uiCount: "UI modules",
     apiCount: "API modules",
     pagesCount: "Page modules",
+    stdEyebrow: "TEST DESIGN & TRACEABILITY",
+    stdTitle: "From 38 logical scenarios to 65 automated executions.",
+    stdBody: "The project STD keeps the design layer readable while mapping parameterized and DDT cases to every automated execution. The workbook includes preconditions, steps, test data, expected results, priorities, verified outcomes and one-to-many traceability.",
+    stdLogical: "Logical STD scenarios",
+    stdExecutions: "Automated executions",
+    stdClasses: "Test classes",
+    stdDownload: "Download STD (.xlsx)",
+    stdCaption: "38 logical scenarios · 65 executions · 7 test classes · 64 passed · 1 expected xfail",
     proofEyebrow: "EXECUTION & SOURCE EVIDENCE",
     proofTitle: "Explore the evidence library.",
     proofBody: "A curated evidence library combining source excerpts with verified execution results. The regression was captured through Pytest terminal output, Allure reporting and a UI automation showcase video.",
@@ -84,6 +92,14 @@ const copy = {
     uiCount: "קובצי UI",
     apiCount: "קובצי API",
     pagesCount: "קובצי עמודים",
+    stdEyebrow: "תכנון בדיקות ו־Traceability",
+    stdTitle: "מ־38 תרחישי STD ל־65 הרצות אוטומטיות.",
+    stdBody: "מסמך ה־STD שומר על שכבת תכנון קריאה וממפה תרחישי DDT ו־parametrization לכל הרצה אוטומטית. הקובץ כולל תנאים מקדימים, שלבים, נתוני בדיקה, תוצאה צפויה, עדיפות, תוצאות מאומתות ומיפוי מלא בין התכנון לקוד.",
+    stdLogical: "תרחישי STD לוגיים",
+    stdExecutions: "הרצות אוטומטיות",
+    stdClasses: "מחלקות בדיקה",
+    stdDownload: "הורדת STD (.xlsx)",
+    stdCaption: "38 תרחישים לוגיים · 65 הרצות · 7 מחלקות בדיקה · 64 עברו · xfail צפוי אחד",
     proofEyebrow: "ראיות הרצה וקוד מקור",
     proofTitle: "גלריית הראיות של הפרויקט.",
     proofBody: "גלריית ראיות המשלבת מקטעי קוד עם תוצאות הרצה מאומתות. ה־Regression תועד באמצעות פלט Pytest, דוח Allure וסרטון Showcase של אוטומציית ה־UI.",
@@ -190,6 +206,255 @@ function Track({
   );
 }
 
+
+
+type StdExampleKey = "login" | "email" | "sequence";
+
+const stdExampleKeys: StdExampleKey[] = ["login", "email", "sequence"];
+
+const stdExamplesCopy = {
+  en: {
+    eyebrow: "SELECTED STD EXAMPLES",
+    title: "Three scenarios that show how the suite was designed.",
+    intro: "Select a scenario to inspect the test-design record behind the automation. These examples intentionally cover DDT, negative UI validation and API sequencing/defect handling.",
+    openHint: "Select a scenario",
+    labels: {
+      preconditions: "Preconditions",
+      steps: "Test steps",
+      data: "Test data",
+      expected: "Expected result",
+      mapping: "Automation mapping",
+      result: "Verified result",
+    },
+    scenarios: {
+      login: {
+        id: "STD-UI-LGN-001",
+        layer: "UI · LOGIN · DDT",
+        title: "Accepted username normalization",
+        summary: "One logical STD scenario expands into four automated executions for valid username variants.",
+        preconditions: "A registered test account exists and the login page is available.",
+        steps: [
+          "Open the home page and navigate to Login.",
+          "Enter a valid username variant.",
+          "Enter the valid password.",
+          "Submit the login form.",
+        ],
+        data: "valid username · leading space · trailing space · uppercase username",
+        expected: "Authentication succeeds and the Logout control is visible.",
+        mapping: "tests/test_login.py::TestLoginPage::test_login_valid",
+        result: "PASS · 4 executions",
+      },
+      email: {
+        id: "STD-UI-REG-005",
+        layer: "UI · REGISTRATION · NEGATIVE DDT",
+        title: "Reject invalid email formats",
+        summary: "Five invalid email datasets verify the registration boundary with one parameterized test design.",
+        preconditions: "The registration page is available.",
+        steps: [
+          "Open Registration.",
+          "Fill valid identity and password fields.",
+          "Enter the parameterized invalid email value.",
+          "Submit the registration form.",
+        ],
+        data: "test · test@ · test@.com · test@@gmail.com · @gmail.com",
+        expected: "Registration is blocked and the email error contains “This email is invalid.”",
+        mapping: "tests/test_registration.py::TestRegistration::test_register_invalid_email_format",
+        result: "PASS · 5 executions",
+      },
+      sequence: {
+        id: "STD-API-CHK-003",
+        layer: "API · CHECKOUT · SEQUENCE",
+        title: "Payment cannot be selected before shipping",
+        summary: "A state-sequencing negative test exposes the suite's single reproduced known defect.",
+        preconditions: "The cart contains an item, valid addresses are applied and shipping has not been selected.",
+        steps: [
+          "Add an item to the cart.",
+          "PUT valid checkout addresses.",
+          "PATCH the payment method before selecting shipping.",
+        ],
+        data: "API-provided payment method before shipping selection",
+        expected: "Controlled HTTP 422 rejection. Verified Sylius behavior returned HTTP 500 instead.",
+        mapping: "tests/test_api_checkout.py::TestCheckoutApi::test_cannot_select_payment_before_shipping",
+        result: "XFAIL · expected 422 / actual 500",
+      },
+    },
+  },
+  he: {
+    eyebrow: "דוגמאות נבחרות מתוך ה־STD",
+    title: "שלושה תרחישים שממחישים איך תוכננה חבילת הבדיקות.",
+    intro: "בחרו תרחיש כדי לראות את רשומת ה־STD שמאחורי האוטומציה. הדוגמאות נבחרו בכוונה כדי להציג DDT, בדיקת ולידציה שלילית ב־UI ובדיקת סדר מצבים ב־API עם טיפול בתקלה מתועדת.",
+    openHint: "בחרו תרחיש",
+    labels: {
+      preconditions: "תנאים מקדימים",
+      steps: "שלבי הבדיקה",
+      data: "נתוני בדיקה",
+      expected: "תוצאה צפויה",
+      mapping: "מיפוי לאוטומציה",
+      result: "תוצאה מאומתת",
+    },
+    scenarios: {
+      login: {
+        id: "STD-UI-LGN-001",
+        layer: "UI · LOGIN · DDT",
+        title: "Normalization תקין של שם משתמש",
+        summary: "תרחיש STD לוגי אחד מתרחב לארבע הרצות אוטומטיות עם וריאציות תקינות של שם המשתמש.",
+        preconditions: "קיים חשבון בדיקה רשום ועמוד ההתחברות זמין.",
+        steps: [
+          "פתיחת דף הבית ומעבר לעמוד Login.",
+          "הזנת וריאציה תקינה של שם המשתמש.",
+          "הזנת הסיסמה התקינה.",
+          "שליחת טופס ההתחברות.",
+        ],
+        data: "שם משתמש תקין · רווח בתחילת הערך · רווח בסוף הערך · אותיות גדולות",
+        expected: "ההתחברות מצליחה וכפתור Logout מוצג.",
+        mapping: "tests/test_login.py::TestLoginPage::test_login_valid",
+        result: "PASS · 4 הרצות",
+      },
+      email: {
+        id: "STD-UI-REG-005",
+        layer: "UI · REGISTRATION · NEGATIVE DDT",
+        title: "דחיית פורמטים לא תקינים של Email",
+        summary: "חמישה ערכי Email לא תקינים בודקים את גבול הוולידציה באמצעות תכנון parameterized אחד.",
+        preconditions: "עמוד ההרשמה זמין.",
+        steps: [
+          "פתיחת Registration.",
+          "מילוי פרטי זהות וסיסמה תקינים.",
+          "הזנת ערך Email לא תקין מתוך ה־dataset.",
+          "שליחת טופס ההרשמה.",
+        ],
+        data: "test · test@ · test@.com · test@@gmail.com · @gmail.com",
+        expected: "ההרשמה נחסמת ומוצגת הודעת השגיאה “This email is invalid.”",
+        mapping: "tests/test_registration.py::TestRegistration::test_register_invalid_email_format",
+        result: "PASS · 5 הרצות",
+      },
+      sequence: {
+        id: "STD-API-CHK-003",
+        layer: "API · CHECKOUT · SEQUENCE",
+        title: "אי אפשר לבחור תשלום לפני בחירת משלוח",
+        summary: "בדיקה שלילית של סדר המצבים חשפה את התקלה הידועה היחידה ששוחזרה בחבילת הבדיקות.",
+        preconditions: "העגלה מכילה פריט, הוגדרו כתובות תקינות ועדיין לא נבחרה שיטת משלוח.",
+        steps: [
+          "הוספת פריט לעגלה.",
+          "שליחת PUT עם כתובות Checkout תקינות.",
+          "שליחת PATCH לבחירת תשלום לפני בחירת משלוח.",
+        ],
+        data: "Payment method שהתקבל מה־API לפני בחירת shipping",
+        expected: "דחייה מבוקרת עם HTTP 422. בפועל Sylius החזיר HTTP 500.",
+        mapping: "tests/test_api_checkout.py::TestCheckoutApi::test_cannot_select_payment_before_shipping",
+        result: "XFAIL · expected 422 / actual 500",
+      },
+    },
+  },
+} as const;
+
+function StdExamples({ language }: { language: Language }) {
+  const [active, setActive] = useState<StdExampleKey>("login");
+  const t = stdExamplesCopy[language];
+  const item = t.scenarios[active];
+  const knownIssue = active === "sequence";
+
+  return (
+    <div className="mt-9 border-t border-[#D5E5DE] pt-8">
+      <p className="text-[11px] font-extrabold tracking-[0.14em] text-[#0B7770]">{t.eyebrow}</p>
+      <h3 className="mt-2 max-w-3xl text-xl font-bold leading-snug text-[#19343D] sm:text-2xl">{t.title}</h3>
+      <p className="mt-3 max-w-3xl text-sm leading-7 text-[#637879]">{t.intro}</p>
+      <p className="mt-6 mb-3 text-xs font-bold tracking-wide text-[#0B7770]">{t.openHint}</p>
+
+      <div className="grid gap-3 md:grid-cols-3">
+        {stdExampleKeys.map((key) => {
+          const scenario = t.scenarios[key];
+          const chosen = active === key;
+          const defect = key === "sequence";
+
+          return (
+            <button
+              key={key}
+              type="button"
+              aria-pressed={chosen}
+              onClick={() => setActive(key)}
+              className={`min-w-0 rounded-2xl border p-4 text-start transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0B7770] ${
+                chosen
+                  ? defect
+                    ? "border-[#B7845D] bg-[#FBF4EA] shadow-[0_8px_26px_rgba(145,95,55,.10)]"
+                    : "border-[#0B7770] bg-[#EAF5EF] shadow-[0_8px_26px_rgba(19,89,81,.10)]"
+                  : "border-[#D3E4DC] bg-white/80 hover:border-[#86B5A7] hover:bg-[#F7FBF8]"
+              }`}
+            >
+              <div className="flex items-start justify-between gap-3" dir="ltr">
+                <code className={`text-[10px] font-bold ${defect ? "text-[#99623D]" : "text-[#0B7770]"}`}>{scenario.id}</code>
+                <span className={`rounded-full px-2 py-1 text-[9px] font-extrabold tracking-wide ${
+                  defect ? "bg-[#F3E2CF] text-[#8D5E3B]" : "bg-[#DCEFE7] text-[#0B7770]"
+                }`}>
+                  {defect ? "XFAIL" : "PASS"}
+                </span>
+              </div>
+              <p className="mt-4 text-[10px] font-bold tracking-wide text-[#7A8E89]" dir="ltr">{scenario.layer}</p>
+              <span className="mt-1 block text-sm font-bold leading-6 text-[#19343D]">{scenario.title}</span>
+              <p className="mt-2 text-xs leading-5 text-[#637879]">{scenario.summary}</p>
+            </button>
+          );
+        })}
+      </div>
+
+      <article
+        className={`mt-4 overflow-hidden rounded-[22px] border bg-white ${knownIssue ? "border-[#D7B791]" : "border-[#C9DED4]"}`}
+        aria-live="polite"
+      >
+        <div className="grid lg:grid-cols-[0.9fr_1.1fr]">
+          <div className={`p-5 sm:p-7 ${knownIssue ? "bg-[#FBF4EA]" : "bg-[#F2F8F4]"}`}>
+            <div className="flex flex-wrap items-center gap-2" dir="ltr">
+              <code className={`text-xs font-extrabold ${knownIssue ? "text-[#95603A]" : "text-[#0B7770]"}`}>{item.id}</code>
+              <span className={`rounded-full px-2.5 py-1 text-[9px] font-extrabold tracking-wide ${knownIssue ? "bg-[#EFDCC6] text-[#8D5E3B]" : "bg-[#D9EEE6] text-[#0B7770]"}`}>
+                {item.layer}
+              </span>
+            </div>
+            <h4 className="mt-4 text-xl font-bold leading-snug text-[#19343D]">{item.title}</h4>
+            <p className="mt-3 text-sm leading-7 text-[#526E70]">{item.summary}</p>
+
+            <div className="mt-5 rounded-xl border border-white/80 bg-white/80 p-4">
+              <p className="text-xs font-bold text-[#0B7770]">{t.labels.preconditions}</p>
+              <p className="mt-2 text-sm leading-6 text-[#425F60]">{item.preconditions}</p>
+            </div>
+          </div>
+
+          <div className="p-5 sm:p-7">
+            <div>
+              <p className="text-xs font-bold text-[#0B7770]">{t.labels.steps}</p>
+              <ol className="mt-3 space-y-2">
+                {item.steps.map((step, index) => (
+                  <li key={step} className="flex gap-3 text-sm leading-6 text-[#526E70]">
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#E8F3EE] text-[10px] font-bold text-[#0B7770]" dir="ltr">{index + 1}</span>
+                    <span>{step}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              <div className="rounded-xl border border-[#DDE9E3] bg-[#FAFCFA] p-4">
+                <p className="text-xs font-bold text-[#0B7770]">{t.labels.data}</p>
+                <p className="mt-2 text-xs leading-6 text-[#526E70]" dir="auto">{item.data}</p>
+              </div>
+              <div className={`rounded-xl border p-4 ${knownIssue ? "border-[#E4C9A9] bg-[#FFF9F1]" : "border-[#DDE9E3] bg-[#FAFCFA]"}`}>
+                <p className={`text-xs font-bold ${knownIssue ? "text-[#94603B]" : "text-[#0B7770]"}`}>{t.labels.expected}</p>
+                <p className="mt-2 text-xs leading-6 text-[#526E70]">{item.expected}</p>
+              </div>
+            </div>
+
+            <div className="mt-4 rounded-xl bg-[#142D33] p-4" dir="ltr">
+              <p className="text-[10px] font-bold tracking-wide text-[#95D7C2]">{t.labels.mapping}</p>
+              <code className="mt-2 block break-all text-[11px] leading-5 text-[#D7F0E7]">{item.mapping}</code>
+              <div className="mt-4 flex items-center justify-between gap-3 border-t border-white/15 pt-3">
+                <span className="text-[10px] font-bold tracking-wide text-[#A8C2BE]">{t.labels.result}</span>
+                <span className={`text-[11px] font-extrabold ${knownIssue ? "text-[#F0C891]" : "text-[#92D6C1]"}`}>{item.result}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  );
+}
 
 // Exact excerpts from tests/test_api_checkout.py supplied by the project author.
 // These are expectations from test code, not test-run results.
@@ -729,6 +994,7 @@ export default function SyliusCaseStudy() {
   const { language } = useLanguage();
   const t = copy[language];
   const project = translations[language].projects.sylius;
+  const stdHref = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/docs/Sylius_Automation_STD.xlsx`;
 
   const sharedText = {
     fixtures: [t.fixtures, t.fixturesBody],
@@ -751,7 +1017,7 @@ export default function SyliusCaseStudy() {
 
         <header className="mb-12">
           <p className="page-kicker">{t.label}</p>
-          <h1 className="page-title">Sylius <span>Automation.</span></h1>
+          <h1 className="page-title">Sylius <span>Automation</span></h1>
           <p className="page-lead mb-6">{t.intro}</p>
           <div className="flex flex-wrap items-center gap-3">
             <span className="inline-flex items-center gap-2 rounded-full border border-[#BBDDD0] bg-[#E6F3EE] px-4 py-2 text-xs font-bold text-[#0B7770]">
@@ -761,6 +1027,41 @@ export default function SyliusCaseStudy() {
             <span className="text-xs font-medium text-[#637879]" dir="ltr">Python · Playwright · Pytest · API</span>
           </div>
         </header>
+
+        <section aria-labelledby="sylius-std" className="glass-surface mb-12 overflow-hidden p-6 md:p-9">
+          <div className="grid gap-7 lg:grid-cols-[1.25fr_0.75fr] lg:items-center">
+            <div>
+              <p className="section-index">{t.stdEyebrow}</p>
+              <h2 id="sylius-std" className="mt-3 max-w-3xl text-2xl font-bold tracking-tight text-[#19343D] md:text-3xl">
+                {t.stdTitle}
+              </h2>
+              <p className="mt-4 max-w-3xl text-sm leading-7 text-[#637879] md:text-base md:leading-8">{t.stdBody}</p>
+              <p className="mt-4 font-mono text-xs leading-6 text-[#7A8B84]" dir="ltr">{t.stdCaption}</p>
+              <a
+                href={stdHref}
+                download
+                className="action-btn action-btn--primary mt-6 inline-flex"
+              >
+                {t.stdDownload} <span aria-hidden="true">↓</span>
+              </a>
+            </div>
+
+            <div className="grid grid-cols-3 gap-3">
+              {[
+                ["38", t.stdLogical],
+                ["65", t.stdExecutions],
+                ["07", t.stdClasses],
+              ].map(([number, label]) => (
+                <div key={label} className="rounded-2xl border border-[#D0E6DC] bg-[#F3FAF5] p-4 text-center">
+                  <strong className="block text-3xl font-bold text-[#0B7770] sm:text-4xl">{number}</strong>
+                  <span className="mt-2 block text-[11px] font-semibold leading-5 text-[#516F70] sm:text-xs">{label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <StdExamples language={language} />
+        </section>
 
         <section aria-labelledby="sylius-architecture" className="mb-12">
           <p className="section-index">{t.architectureEyebrow}</p>
