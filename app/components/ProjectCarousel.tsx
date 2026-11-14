@@ -86,86 +86,60 @@ function ProjectArtwork({
   id,
   label,
   demoVideo,
-  demoHint,
 }: {
   id: ProjectId;
   label: string;
   demoVideo?: string;
-  demoHint?: string;
 }) {
   const coverFile = projectCoverFiles[id];
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
   const [playPreview, setPlayPreview] = useState(false);
 
   if (demoVideo) {
-    const posterSrc = coverFile
+    const imageSrc = coverFile
       ? `${basePath}/media/${id}/${coverFile}`
       : undefined;
 
-    const startPreview = () => {
-      setPlayPreview(true);
-    };
-
     return (
       <div
-        className={`project-art project-art--${id} relative overflow-hidden`}
-        role="button"
-        tabIndex={0}
-        aria-label={`${label}. ${
-          demoHint ?? "Hover or tap to play demo"
-        }`}
-        onMouseEnter={startPreview}
-        onPointerEnter={startPreview}
-        onPointerDown={startPreview}
-        onTouchStart={startPreview}
-        onFocus={startPreview}
-        onKeyDown={(event) => {
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            startPreview();
-          }
-        }}
+        className={`project-art project-art--${id}`}
+        role="img"
+        aria-label={label}
+        onMouseEnter={() => setPlayPreview(true)}
+        onFocusCapture={() => setPlayPreview(true)}
+        onTouchStart={() => setPlayPreview(true)}
         style={{
           border: "none",
           background: projectCoverBackgrounds[id] ?? "#142e36",
         }}
       >
-        <video
-          key={playPreview ? "playing" : "poster"}
-          src={playPreview ? demoVideo : undefined}
-          poster={posterSrc}
-          autoPlay={playPreview}
-          muted
-          loop
-          playsInline
-          preload="none"
-          aria-hidden="true"
-          className="relative z-10 block h-full w-full object-contain"
-        />
-
-        {!playPreview && (
-          <div
-            className="pointer-events-none absolute bottom-3 right-3 z-20 flex items-center gap-2 rounded-full border border-white/40 bg-black/60 px-3 py-1.5 text-[11px] font-semibold tracking-wide text-white shadow-lg backdrop-blur-md"
+        {playPreview ? (
+          <video
+            src={demoVideo}
+            poster={imageSrc}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="none"
             aria-hidden="true"
-          >
-            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white text-[9px] text-black">
-              ▶
-            </span>
-
-            <span>
-              {demoHint ?? "Hover or tap to play"}
-            </span>
-
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-60" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white" />
-            </span>
-          </div>
+            className="relative z-10 block h-full w-full object-cover"
+          />
+        ) : (
+          imageSrc && (
+            <img
+              src={imageSrc}
+              alt=""
+              aria-hidden="true"
+              draggable={false}
+              decoding="async"
+              className="relative z-10 block h-full w-full object-cover"
+            />
+          )
         )}
       </div>
     );
   }
-
   if (coverFile) {
     const imageSrc = `${basePath}/media/${id}/${coverFile}`;
 
@@ -194,7 +168,7 @@ function ProjectArtwork({
         <img
           src={imageSrc}
           alt=""
-          aria-hidden="true"
+          loading="eager"
           draggable={false}
           className={`relative z-10 block h-full w-full ${
             id === "sylius" ? "object-cover" : "object-contain"
@@ -477,15 +451,10 @@ export default function ProjectCarousel() {
               </span>
             </div>
 
-        <ProjectArtwork
+            <ProjectArtwork
   id={active.id}
   label={activeCopy.artLabel}
   demoVideo={active.demoVideo}
-  demoHint={
-    isHebrew
-      ? "געו או העבירו עכבר להפעלת הדמו"
-      : "Hover or tap to play demo"
-  }
 />
 
             <div className="card-copy">
@@ -642,4 +611,3 @@ export default function ProjectCarousel() {
     </>
   );
 }
-

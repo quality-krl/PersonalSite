@@ -2609,17 +2609,19 @@ html[lang="he"] .external-brand-link {
   width: 100%;
   height: 100%;
 
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
 
   background: #0b1115;
 
   filter: contrast(1.03) saturate(1.02);
 
-  transition: filter 0.35s ease;
+  transition:
+    transform 0.35s ease,
+    filter 0.35s ease;
 }
 
 .spotlight-card:hover .project-art--sylius video {
-  transform: none;
+  transform: scale(1.015);
   filter: contrast(1.05) saturate(1.05);
 }
