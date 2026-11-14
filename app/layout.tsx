@@ -1,4 +1,3 @@
-
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Sora, Manrope, Heebo } from "next/font/google";
@@ -36,13 +35,45 @@ export const metadata: Metadata = {
     "QA Automation, API testing and risk-based quality engineering. Explore Kirill Kovalevski's portfolio and case studies.",
 };
 
+const languageBootstrapScript = `
+(() => {
+  try {
+    const savedLanguage = localStorage.getItem("personal-site-language");
+
+    if (savedLanguage === "he") {
+      document.documentElement.lang = "he";
+      document.documentElement.dir = "rtl";
+    } else {
+      document.documentElement.lang = "en";
+      document.documentElement.dir = "ltr";
+    }
+  } catch {
+    document.documentElement.lang = "en";
+    document.documentElement.dir = "ltr";
+  }
+})();
+`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: ReactNode;
 }>) {
   return (
-    <html lang="en" data-scroll-behavior="smooth">
+    <html
+      lang="en"
+      dir="ltr"
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: languageBootstrapScript,
+          }}
+        />
+      </head>
+
       <body
         className={[
           sora.variable,
