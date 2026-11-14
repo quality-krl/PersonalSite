@@ -93,53 +93,37 @@ function ProjectArtwork({
 }) {
   const coverFile = projectCoverFiles[id];
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
-  const [playPreview, setPlayPreview] = useState(false);
 
   if (demoVideo) {
-    const imageSrc = coverFile
-      ? `${basePath}/media/${id}/${coverFile}`
-      : undefined;
-
     return (
       <div
         className={`project-art project-art--${id}`}
         role="img"
         aria-label={label}
-        onMouseEnter={() => setPlayPreview(true)}
-        onFocusCapture={() => setPlayPreview(true)}
-        onTouchStart={() => setPlayPreview(true)}
         style={{
           border: "none",
           background: projectCoverBackgrounds[id] ?? "#142e36",
         }}
       >
-        {playPreview ? (
-          <video
-            src={demoVideo}
-            poster={imageSrc}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="none"
-            aria-hidden="true"
-            className="relative z-10 block h-full w-full object-cover"
-          />
-        ) : (
-          imageSrc && (
-            <img
-              src={imageSrc}
-              alt=""
-              aria-hidden="true"
-              draggable={false}
-              decoding="async"
-              className="relative z-10 block h-full w-full object-cover"
-            />
-          )
-        )}
+        <video
+          src={demoVideo}
+          poster={
+            coverFile
+              ? `${basePath}/media/${id}/${coverFile}`
+              : undefined
+          }
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-hidden="true"
+          className="relative z-10 block h-full w-full object-cover"
+        />
       </div>
     );
   }
+
   if (coverFile) {
     const imageSrc = `${basePath}/media/${id}/${coverFile}`;
 
